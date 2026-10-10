@@ -1,0 +1,30 @@
+HOW TO EDIT YOUR PORTFOLIO
+==========================
+
+1. Open any .html page in a text editor (VS Code is best). Search for "EDIT:" to find
+   every spot you should change. Replace anything in [square brackets] with your own text.
+
+2. Your name and the menu live in ONE place: main.js (top of the file).
+   Change NAME there and it updates on every page.
+
+3. To add a new page:
+   - Copy an existing page, e.g. teaching.html, and rename it.
+   - Add one line to the NAV list in main.js so it appears in the menu.
+
+4. To add an item (a lesson, a student project, a case study, a journal entry):
+   copy one whole block (<li>...</li>, <article>...</article> or <details>...</details>),
+   paste it below, and change the text.
+
+5. To add a photo: put it in the images folder, then replace the grey placeholder box
+   <div class="ph" ...></div> with:
+   <img class="fill" src="images/your-photo.jpg" alt="Describe the photo">
+
+6. To add a journal entry: copy journal/entry-template.html, rename it, fill in the
+   four sections, then add a line for it in journal.html.
+
+7. Student privacy: no names, faces or identifying details without consent.
+
+PUBLISHING ON GITHUB
+====================
+Upload everything in this folder (keep the folder structure) to a GitHub repository,
+turn on GitHub Pages in the repo settings, and the site goes live in about a minute.

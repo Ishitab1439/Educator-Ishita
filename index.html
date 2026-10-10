@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design teacher and school leader | Portfolio</title>
+<meta name="description" content="Teaching practice, student design work, design skills and leadership case studies from an MYP Design and Math teacher.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script src="main.js" defer></script>
+</head>
+<body data-page="home" data-root="">
+<a class="skip" href="#main">Skip to content</a>
+<div id="site-header"></div>
+
+<main id="main">
+
+  <!-- ===== HERO ===== -->
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <!-- EDIT: your one-line statement of what you stand for -->
+        <h1>I teach students to make things, and teachers to make good practice stick.</h1>
+        <p class="lede">MYP Design and Math teacher, ManageBac implementation lead and mentor to young innovators. This is where my classroom work, my leadership and my own making sit side by side.</p>
+        <div class="actions">
+          <a class="btn solid" href="teaching.html">Explore my teaching</a>
+          <a class="btn line" href="student-work.html">See student work</a>
+        </div>
+      </div>
+
+      <!-- Title block: the corner of a technical drawing, used here as a quick profile -->
+      <aside class="title-block" aria-label="Profile summary">
+        <div class="row name"><div class="cell"><small>Educator</small><strong>[Your name]</strong></div></div>
+        <div class="row"><div class="cell"><small>Teaches</small><strong>MYP Design and Math</strong></div></div>
+        <div class="row"><div class="cell"><small>School</small><strong>Sreenidhi International School</strong></div></div>
+        <div class="row"><div class="cell"><small>Also</small><strong>ManageBac implementation lead; Mentor of Change, Atal Innovation Mission; Innovation and Design Mentor, ACIC</strong></div></div>
+        <div class="row two">
+          <div class="cell"><small>Qualifications</small><strong>BSc Mathematics, MA Economics, M.Ed</strong></div>
+          <div class="cell stamp"><small>Sheet</small><strong>Portfolio, Oct 2026</strong></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- ===== PATH CHOOSER: shows each visitor three good starting points ===== -->
+  <section class="paths" style="padding-bottom:0">
+    <div class="wrap" data-tabs>
+      <h2>What brings you here?</h2>
+      <div class="filters" role="group" aria-label="Choose what you are looking for">
+        <button type="button" data-tab="teacher" aria-pressed="true">I am a teacher</button>
+        <button type="button" data-tab="leader" aria-pressed="false">I am hiring or leading a school</button>
+        <button type="button" data-tab="student" aria-pressed="false">I am a student</button>
+        <button type="button" data-tab="maker" aria-pressed="false">I like making things</button>
+      </div>
+
+      <!-- EDIT: change the three links in each panel as your site grows -->
+      <div class="path-panel" data-panel="teacher">
+        <a href="teaching.html"><strong>Lessons and units</strong><span>Plans you can read, adapt and reuse.</span></a>
+        <a href="journal.html"><strong>Classroom reflections</strong><span>What worked, what did not and why.</span></a>
+        <a href="leadership.html#tools"><strong>Templates I have made</strong><span>Free downloads for planning and feedback.</span></a>
+      </div>
+      <div class="path-panel" data-panel="leader" hidden>
+        <a href="leadership.html"><strong>Leadership case studies</strong><span>Context, my role, what I did and the result.</span></a>
+        <a href="ignite.html"><strong>Sreenidhi IGNITE</strong><span>A school-wide student innovation event.</span></a>
+        <a href="about.html"><strong>My story</strong><span>How a maths and economics background led here.</span></a>
+      </div>
+      <div class="path-panel" data-panel="student" hidden>
+        <a href="student-work.html"><strong>Work by students like you</strong><span>Real projects, with the thinking behind them.</span></a>
+        <a href="design-skills.html"><strong>See how things get made</strong><span>From sketch to CAD to finished object.</span></a>
+        <a href="ignite.html"><strong>Join IGNITE</strong><span>Hackathon and Makeathon, 5 and 6 November 2026.</span></a>
+      </div>
+      <div class="path-panel" data-panel="maker" hidden>
+        <a href="design-skills.html"><strong>My own projects</strong><span>CAD, carpentry and prototyping.</span></a>
+        <a href="journal.html"><strong>Making notes</strong><span>Mistakes, fixes and what I would do next time.</span></a>
+        <a href="contact.html"><strong>Let's compare notes</strong><span>Get in touch about a project.</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DESIGN CYCLE: interactive wheel ===== -->
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>How I work, in four stages</h2>
+          <p>The design cycle shapes my lessons and the way I lead projects. Tap a stage.</p>
+        </div>
+      </div>
+      <div class="cycle" data-cycle>
+        <div class="cycle-panel" data-cycle-panel aria-live="polite"></div>
+        <!-- EDIT: the text and links for each stage -->
+        <ul data-cycle-data hidden>
+          <li data-letter="A" data-name="Inquiring and analysing" data-href="teaching.html" data-link-text="See the lessons">It starts with a real problem. Students learn to find one, research it and justify why it needs solving. In my leadership work, this is the listening stage.</li>
+          <li data-letter="B" data-name="Developing ideas" data-href="student-work.html" data-link-text="See student ideas">Sketches, specifications and honest comparison of options. I show how students choose between ideas, and how I help teams do the same.</li>
+          <li data-letter="C" data-name="Creating the solution" data-href="design-skills.html" data-link-text="See how things get made">Making it real with CAD, carpentry and prototypes. I build alongside students, so I know where the hard parts are.</li>
+          <li data-letter="D" data-name="Evaluating" data-href="journal.html" data-link-text="Read my reflections">Testing, feedback and reflection, for students and for me. My journal is where I evaluate my own decisions in public.</li>
+        </ul>
+      </div>
+      <p class="hint">Use the arrow keys to move between stages if you are on a keyboard.</p>
+    </div>
+  </section>
+
+  <!-- ===== IGNITE ===== -->
+  <section class="band-dark ignite-strip">
+    <div class="wrap">
+      <div>
+        <span class="chip">Student innovation marathon</span>
+        <h2 style="margin-top:.8rem">Sreenidhi IGNITE 2026-27</h2>
+        <p>A Hackathon and Makeathon at Sreenidhi International School on 5 and 6 November 2026, where students turn ideas into working systems and creative solutions.</p>
+        <div class="actions" style="margin-top:1.2rem">
+          <a class="btn solid" href="ignite.html">See my part in it</a>
+          <a class="btn line" href="https://ignitebysis.com/" target="_blank" rel="noopener">Visit ignitebysis.com</a>
+        </div>
+      </div>
+      <!-- Counts down to 5 November 2026 (India time) -->
+      <div class="countdown" data-countdown="2026-11-05T00:00:00+05:30">
+        <span class="cd-num">5 Nov</span>
+        <span class="cd-label">2026</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LATEST JOURNAL ===== -->
+  <section>
+    <div class="wrap two-col">
+      <div>
+        <h2>From my journal</h2>
+        <p style="margin-top:1rem;color:var(--muted)">Short reflections on problems I faced, what I tried and what I learned.</p>
+        <p><a class="see-all" href="journal.html">Read all entries</a></p>
+      </div>
+      <ul class="entries">
+        <!-- EDIT: your two latest entries -->
+        <li>
+          <div class="top"><time datetime="2026-10">[Month Year]</time><span class="chip">3-min read</span></div>
+          <a href="journal/entry-template.html">[Title: a problem you faced in class]</a>
+          <p>[One sentence that sets up the situation.]</p>
+        </li>
+        <li>
+          <div class="top"><time datetime="2026-09">[Month Year]</time><span class="chip">4-min read</span></div>
+          <a href="journal/entry-template.html">[Title: a decision that did not go to plan]</a>
+          <p>[One sentence on what you tried and learned.]</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<div id="site-footer"></div>
+</body>
+</html>

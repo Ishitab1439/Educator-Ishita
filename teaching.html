@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teaching | Portfolio</title>
+<meta name="description" content="Unit plans, lesson plans, inquiry activities and assessments from MYP Design and Math.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script src="main.js" defer></script>
+</head>
+<body data-page="teaching" data-root="">
+<a class="skip" href="#main">Skip to content</a>
+<div id="site-header"></div>
+
+<main id="main">
+  <div class="page-head">
+    <div class="wrap">
+      <h1>Teaching practice</h1>
+      <p>A featured unit, then the lessons, activities and assessments around it. Filter by type or search by topic.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+
+      <article class="feature">
+        <span class="chip">Featured unit plan</span>
+        <!-- EDIT: your best unit -->
+        <h3>[Unit title], MYP Design</h3>
+        <dl>
+          <dt>Key concept</dt><dd>[Add key concept]</dd>
+          <dt>Global context</dt><dd>[Add global context]</dd>
+          <dt>Statement of inquiry</dt><dd>[Add statement of inquiry]</dd>
+          <dt>Assessed</dt><dd>[Add criteria, e.g. Criterion A and B]</dd>
+        </dl>
+        <a class="btn solid" href="files/unit-1.pdf">Open the unit plan</a>
+      </article>
+
+      <div data-filterable>
+        <div class="filters">
+          <button type="button" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" data-filter="unit" aria-pressed="false">Units</button>
+          <button type="button" data-filter="lesson" aria-pressed="false">Lessons</button>
+          <button type="button" data-filter="activity" aria-pressed="false">Activities</button>
+          <button type="button" data-filter="assessment" aria-pressed="false">Assessment</button>
+          <input class="search" type="search" data-search placeholder="Search, e.g. citation" aria-label="Search teaching resources">
+        </div>
+        <p class="kind" aria-live="polite">Showing <span data-count>0</span> resources</p>
+
+        <!-- EDIT: replace with your featured 5 to 8 items. To add one, copy a whole <li> block -->
+        <ul class="res-list">
+          <li data-cat="unit">
+            <a href="files/unit-2.pdf">[Second unit title]</a>
+            <span class="kind">Unit plan</span>
+            <p>[One sentence on the inquiry question students investigate.]</p>
+          </li>
+          <li data-cat="lesson">
+            <a href="files/citation-lesson.pdf">Indexed citation for justifying a need</a>
+            <span class="kind">Lesson, 25 min</span>
+            <p>Teaching students to cite numbered sources in their justification paragraphs.</p>
+          </li>
+          <li data-cat="lesson">
+            <a href="files/values-lesson.pdf">Strength, Integrity, Service</a>
+            <span class="kind">Homeroom lesson, 40 min</span>
+            <p>A values lesson for MYP 3 to 5 built around the school's core values.</p>
+          </li>
+          <li data-cat="lesson">
+            <a href="files/reading-session.pdf">Reading session on friendship and gratitude</a>
+            <span class="kind">Lesson, 40 min</span>
+            <p>A news-report reading session for MYP 1 to 3 with inquiry questions and international-mindedness links.</p>
+          </li>
+          <li data-cat="activity">
+            <a href="files/assembly-skit.pdf">"What would you do?" assembly skit</a>
+            <span class="kind">Activity</span>
+            <p>An interactive skit where the audience decides what the characters should do next.</p>
+          </li>
+          <li data-cat="assessment">
+            <a href="files/feedback-sample.pdf">Feedback on problem statements</a>
+            <span class="kind">Assessment, MYP 2</span>
+            <p>How I give formative feedback that students can act on straight away.</p>
+          </li>
+          <li data-cat="assessment">
+            <a href="files/rubric.pdf">[Rubric title]</a>
+            <span class="kind">Assessment</span>
+            <p>[One sentence on how students use it.]</p>
+          </li>
+        </ul>
+        <p class="empty" hidden>Nothing matches that search. Try a different word, or choose "All".</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+</body>
+</html>

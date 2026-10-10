@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design skills | Portfolio</title>
+<meta name="description" content="My own making: CAD, carpentry, technical drawing and prototyping.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script src="main.js" defer></script>
+</head>
+<body data-page="design-skills" data-root="">
+<a class="skip" href="#main">Skip to content</a>
+<div id="site-header"></div>
+
+<main id="main">
+  <div class="page-head">
+    <div class="wrap">
+      <h1>My own design skills</h1>
+      <p>I teach design, and I also make. This is the work that keeps my skills current.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+
+      <!-- ===== IDEA TO OBJECT: drag the slider to move from sketch to CAD to the built object ===== -->
+      <div class="stages" data-stages>
+        <h2 class="sub-head">From idea to object</h2>
+        <p style="color:var(--muted)">Drag the slider to follow one of my projects from sketch to CAD to the finished piece.</p>
+
+        <!-- EDIT: replace each .ph with an <img> of the same project at each stage -->
+        <div class="stage-view">
+          <div class="layer"><div class="ph" role="img" aria-label="Placeholder: sketch of the project"><span class="ph-tag">Sketch</span></div></div>
+          <div class="layer"><div class="ph" role="img" aria-label="Placeholder: CAD model of the project"><span class="ph-tag">CAD</span></div></div>
+          <div class="layer"><div class="ph" role="img" aria-label="Placeholder: the finished object"><span class="ph-tag">Built</span></div></div>
+        </div>
+
+        <div class="stage-ctrl">
+          <input type="range" min="0" max="100" value="0" step="1" aria-label="Move from sketch to finished object">
+          <div class="stage-btns" role="group" aria-label="Jump to a stage">
+            <button type="button" data-stage-btn aria-pressed="true">Sketch</button>
+            <button type="button" data-stage-btn aria-pressed="false">CAD</button>
+            <button type="button" data-stage-btn aria-pressed="false">Built</button>
+          </div>
+        </div>
+
+        <div class="stage-cap">
+          <div data-stage-cap><h3>Sketch</h3><p>[One or two sentences on the problem and your first ideas.]</p></div>
+          <div data-stage-cap hidden><h3>CAD</h3><p>[One or two sentences on what you modelled and what changed.]</p></div>
+          <div data-stage-cap hidden><h3>Built</h3><p>[One or two sentences on the materials, the build and what you would change.]</p></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="band-birch">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2>What I can make</h2>
+          <p>Keep only the skills that are true for you. Add a photo of finished work to each.</p>
+        </div>
+      </div>
+
+      <!-- EDIT: keep the skills that are true for you, add photos of finished work -->
+      <div class="skills">
+        <article class="skill">
+          <div class="ph" role="img" aria-label="Photo placeholder: CAD work"></div>
+          <div>
+            <h3>CAD modelling</h3>
+            <p>[One line on what you design, from concept model to a drawing someone else can build from.]</p>
+            <span class="tools">Tools: [Add software]</span>
+          </div>
+        </article>
+        <article class="skill">
+          <div class="ph" role="img" aria-label="Photo placeholder: carpentry work"></div>
+          <div>
+            <h3>Carpentry</h3>
+            <p>[One line on what you build and the joints or methods you use.]</p>
+            <span class="tools">Tools: [Add tools and materials]</span>
+          </div>
+        </article>
+        <article class="skill">
+          <div class="ph" role="img" aria-label="Photo placeholder: sketching and technical drawing"></div>
+          <div>
+            <h3>Sketching and technical drawing</h3>
+            <p>[One line on how you communicate ideas on paper before building.]</p>
+            <span class="tools">Tools: [Add media]</span>
+          </div>
+        </article>
+        <article class="skill">
+          <div class="ph" role="img" aria-label="Photo placeholder: prototyping and fabrication"></div>
+          <div>
+            <h3>Prototyping and fabrication</h3>
+            <p>[One line on 3D printing, laser cutting or other making you do.]</p>
+            <span class="tools">Tools: [Add machines]</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap two-col">
+      <div>
+        <h2>Making notes</h2>
+        <p style="margin-top:1rem;color:var(--muted)">Behind every project there is a short write-up: sketches, mistakes and the final build.</p>
+      </div>
+      <ul class="entries">
+        <!-- EDIT: link to your making notes -->
+        <li>
+          <div class="top"><time datetime="2026-09">[Month Year]</time><span class="chip">Making note</span></div>
+          <a href="journal/entry-template.html">[Project title and what went wrong first]</a>
+          <p>[One sentence on what you learned.]</p>
+        </li>
+        <li>
+          <div class="top"><time datetime="2026-08">[Month Year]</time><span class="chip">Making note</span></div>
+          <a href="journal/entry-template.html">[Another project]</a>
+          <p>[One sentence on what you learned.]</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+</body>
+</html>

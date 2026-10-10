@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Student work | Portfolio</title>
+<meta name="description" content="Design projects made by my students, with the brief and the thinking behind each one.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script src="main.js" defer></script>
+</head>
+<body data-page="student-work" data-root="">
+<a class="skip" href="#main">Skip to content</a>
+<div id="site-header"></div>
+
+<main id="main">
+  <div class="page-head">
+    <div class="wrap">
+      <h1>Student design work</h1>
+      <p>What students made, and the thinking behind it. Open any project to see the brief and the process.</p>
+    </div>
+  </div>
+
+  <section class="band-dark" style="padding-top:clamp(2.5rem,5vw,3.5rem)">
+    <div class="wrap" data-filterable>
+      <div class="filters" role="group" aria-label="Filter student work">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="product" aria-pressed="false">Products</button>
+        <button type="button" data-filter="cad" aria-pressed="false">CAD</button>
+        <button type="button" data-filter="prototype" aria-pressed="false">Prototypes</button>
+        <button type="button" data-filter="research" aria-pressed="false">Research and planning</button>
+      </div>
+
+      <!--
+        EDIT: for each project, replace the .ph box inside .work-open with
+        <img class="fill" src="images/your-photo.jpg" alt="Describe the photo">
+        Use first name and grade only, with consent. The text in .work-more shows in the pop-up.
+      -->
+      <div class="work-grid">
+        <article class="work wide" data-cat="product">
+          <button class="work-open" type="button" aria-label="Open featured project"><div class="ph" role="img" aria-label="Photo placeholder: featured student product"></div></button>
+          <h3>[Featured project title]</h3>
+          <p>[Two lines: the problem the student chose and the solution they built.]</p>
+          <span class="meta">[Student first name], MYP [year], product design</span>
+          <div class="work-more"><dl><dt>Brief</dt><dd>[What the student was asked to solve.]</dd><dt>Process</dt><dd>[Key steps: research, ideas, testing.]</dd><dt>Learning</dt><dd>[What the student says they learned.]</dd></dl></div>
+        </article>
+        <article class="work" data-cat="cad">
+          <button class="work-open" type="button" aria-label="Open CAD project"><div class="ph" role="img" aria-label="Photo placeholder: CAD model"></div></button>
+          <h3>[CAD model title]</h3>
+          <p>[One line on the design decision that changed the model.]</p>
+          <span class="meta">[Student first name], MYP [year], CAD</span>
+          <div class="work-more"><dl><dt>Brief</dt><dd>[What the student was asked to model.]</dd><dt>Process</dt><dd>[Key steps and software.]</dd><dt>Learning</dt><dd>[What changed after feedback.]</dd></dl></div>
+        </article>
+        <article class="work" data-cat="prototype">
+          <button class="work-open" type="button" aria-label="Open prototype project"><div class="ph" role="img" aria-label="Photo placeholder: prototype"></div></button>
+          <h3>[Prototype title]</h3>
+          <p>[One line on what testing taught the student.]</p>
+          <span class="meta">[Student first name], MYP [year], prototype</span>
+          <div class="work-more"><dl><dt>Brief</dt><dd>[What the prototype had to prove.]</dd><dt>Process</dt><dd>[Materials, tests, changes.]</dd><dt>Learning</dt><dd>[What the student would change next.]</dd></dl></div>
+        </article>
+        <article class="work" data-cat="research">
+          <button class="work-open" type="button" aria-label="Open research project"><div class="ph" role="img" aria-label="Photo placeholder: research and planning page"></div></button>
+          <h3>[Research page title]</h3>
+          <p>[One line on how the student justified the need for a solution.]</p>
+          <span class="meta">[Student first name], MYP [year], inquiry and analysis</span>
+          <div class="work-more"><dl><dt>Brief</dt><dd>[The problem the student identified.]</dd><dt>Process</dt><dd>[Sources, interviews, surveys.]</dd><dt>Learning</dt><dd>[What the research changed.]</dd></dl></div>
+        </article>
+        <article class="work" data-cat="product">
+          <button class="work-open" type="button" aria-label="Open product project"><div class="ph" role="img" aria-label="Photo placeholder: student product"></div></button>
+          <h3>[Project title]</h3>
+          <p>[One line on the brief.]</p>
+          <span class="meta">[Student first name], MYP [year], product design</span>
+          <div class="work-more"><dl><dt>Brief</dt><dd>[What the student was asked to solve.]</dd><dt>Process</dt><dd>[Key steps.]</dd><dt>Learning</dt><dd>[What they learned.]</dd></dl></div>
+        </article>
+        <article class="work" data-cat="prototype cad">
+          <button class="work-open" type="button" aria-label="Open prototype and CAD project"><div class="ph" role="img" aria-label="Photo placeholder: student prototype"></div></button>
+          <h3>[Project title]</h3>
+          <p>[One line on the brief.]</p>
+          <span class="meta">[Student first name], MYP [year], prototype</span>
+          <div class="work-more"><dl><dt>Brief</dt><dd>[What the student was asked to solve.]</dd><dt>Process</dt><dd>[Key steps.]</dd><dt>Learning</dt><dd>[What they learned.]</dd></dl></div>
+        </article>
+      </div>
+      <p class="empty" hidden>No projects in this group yet.</p>
+
+      <p class="note">Student work is shared with the student's and family's consent. Names are shortened and no faces are shown.</p>
+    </div>
+  </section>
+</main>
+
+<!-- Pop-up viewer. Opens when a project is clicked. Use the arrow keys or buttons to move between projects. -->
+<dialog class="lightbox" id="lightbox" aria-label="Project viewer">
+  <div class="lb-body">
+    <div class="lb-media"></div>
+    <div class="lb-text">
+      <h3 class="lb-title"></h3>
+      <span class="lb-meta"></span>
+      <div class="lb-more"></div>
+    </div>
+  </div>
+  <div class="lb-bar">
+    <span class="lb-count"></span>
+    <div class="nav-btns">
+      <button type="button" class="icon-btn lb-prev">Previous</button>
+      <button type="button" class="icon-btn lb-next">Next</button>
+      <button type="button" class="icon-btn lb-close">Close</button>
+    </div>
+  </div>
+</dialog>
+
+<div id="site-footer"></div>
+</body>
+</html>
