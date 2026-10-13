@@ -312,6 +312,34 @@ details.principle p { font-size: 1rem; line-height: 1.5; color: var(--muted); ma
 .maker-grid h3 { font-size: 1.15rem; margin: .9rem 0 .25rem; }
 .maker-grid p { font-size: 1rem; line-height: 1.5; margin: 0; color: var(--muted); }
 
+/* ---------- Playful touches ---------- */
+
+/* Pull cord: hangs from the header and switches day / night */
+.cord { position: absolute; top: 100%; right: max(1.25rem, calc((100vw - var(--max)) / 2)); width: 26px; height: 0; z-index: 60; }
+.cord-swing { --len: 48px; position: absolute; left: 0; top: 0; width: 26px; transform-origin: 50% 0; }
+.cord-line { position: absolute; left: 50%; top: 0; width: 2px; height: var(--len); margin-left: -1px; background: repeating-linear-gradient(180deg, var(--ink) 0 3px, var(--line) 3px 5px); }
+.cord-handle { position: absolute; left: 50%; top: var(--len); width: 22px; height: 30px; margin-left: -11px; padding: 0; background: var(--tape); border: 2px solid var(--ink); border-radius: 50% 50% 50% 50% / 38% 38% 62% 62%; cursor: grab; touch-action: none; box-shadow: inset -3px -4px 0 rgba(30, 58, 52, .22); }
+.cord-handle:active { cursor: grabbing; }
+.cord-tip { position: absolute; right: 30px; top: calc(var(--len) + 6px); font-family: var(--display); font-weight: 500; font-size: .85rem; color: var(--muted); white-space: nowrap; pointer-events: none; transition: opacity .4s ease; }
+.cord-swing.used .cord-tip { opacity: 0; }
+#theme-btn { display: none; }
+
+/* Lights dimming: colours fade for a moment when the theme changes */
+html.theme-fade, html.theme-fade *, html.theme-fade *::before, html.theme-fade *::after { transition: background-color .4s ease, color .4s ease, border-color .4s ease, fill .4s ease !important; }
+
+/* Foil card: tilts toward the pointer and catches the light */
+.foil { position: relative; transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .5s cubic-bezier(.2, .9, .3, 1.25); will-change: transform; }
+.foil.active { transition: transform .1s linear; }
+.foil::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s ease;
+  background:
+    radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, .6), rgba(255, 255, 255, 0) 38%),
+    conic-gradient(from calc(var(--hue, 0) * 1deg) at var(--mx, 50%) var(--my, 50%), rgba(255, 70, 140, .22), rgba(255, 200, 0, .22), rgba(0, 205, 160, .22), rgba(90, 130, 255, .22), rgba(255, 70, 140, .22)); }
+.foil.active::after { opacity: 1; }
+
+/* Squishy buttons: they squash when pressed and spring back */
+.btn, .filters button, .icon-btn { transition: transform .45s cubic-bezier(.34, 1.9, .5, 1), background .15s ease, color .15s ease; }
+.btn:active, .filters button:active, .icon-btn:active { transform: scale(.93, 1.08) translateY(1px); transition-duration: .08s; }
+
 /* ---------- Small screens ---------- */
 @media (max-width: 900px) {
   .maker-grid { grid-template-columns: repeat(2, 1fr); }
@@ -328,6 +356,8 @@ details.principle p { font-size: 1rem; line-height: 1.5; color: var(--muted); ma
 }
 @media (max-width: 820px) {
   .menu-btn { display: inline-block; }
+  .cord { display: none; }          /* small screens use the plain Night mode button instead */
+  #theme-btn { display: inline-block; }
   .nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: var(--bg); border-bottom: 1px solid var(--line); padding: .5rem 1.25rem 1rem; margin: 0; }
   .nav.open { display: flex; }
   .nav a { padding: .8rem 0; border-bottom: 1px solid var(--line); }
@@ -346,5 +376,7 @@ details.principle p { font-size: 1rem; line-height: 1.5; color: var(--muted); ma
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .btn, .work-open::after, .cycle .seg path { transition: none; }
+  .btn, .filters button, .icon-btn, .work-open::after, .cycle .seg path { transition: none; }
+  .foil, .foil::after { transition: none; }
+  html.theme-fade, html.theme-fade * { transition: none !important; }
 }

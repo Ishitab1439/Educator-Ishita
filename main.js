@@ -61,20 +61,130 @@
         '<button class="icon-btn" type="button" id="theme-btn" aria-pressed="false"></button>' +
         '<button class="icon-btn menu-btn" type="button" id="menu-btn" aria-expanded="false" aria-controls="main-nav">Menu</button>' +
       '</div>' +
-      '<div class="ruler" aria-hidden="true"><i></i></div>';
+      '<div class="ruler" aria-hidden="true"><i></i></div>' +
+      // Pull cord: hangs from the header. Pull it down to switch the lights (day / night).
+      '<div class="cord"><div class="cord-swing" id="cord-swing">' +
+        '<span class="cord-line" aria-hidden="true"></span>' +
+        '<button class="cord-handle" type="button" id="cord-handle" role="switch" aria-checked="false" aria-label="Night mode" title="Pull the cord to switch day and night"></button>' +
+        '<span class="cord-tip" aria-hidden="true">Pull</span>' +
+      '</div></div>';
 
+    var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
     var themeBtn = document.getElementById('theme-btn');
+    var cordHandle = document.getElementById('cord-handle');
     var syncTheme = function () {
       var dark = document.documentElement.getAttribute('data-theme') === 'dark';
       themeBtn.textContent = dark ? 'Day mode' : 'Night mode';
       themeBtn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      cordHandle.setAttribute('aria-checked', dark ? 'true' : 'false');
     };
-    syncTheme();
-    themeBtn.addEventListener('click', function () {
+    var toggleTheme = function () {
       var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      var html = document.documentElement;
+      if (!reduceMotion) {            // brief colour fade, like the lights dimming
+        html.classList.add('theme-fade');
+        setTimeout(function () { html.classList.remove('theme-fade'); }, 450);
+      }
       applyTheme(dark ? 'light' : 'dark', true);
       syncTheme();
+    };
+    syncTheme();
+    themeBtn.addEventListener('click', toggleTheme);
+
+    /* ---------- Pull cord physics ----------
+       The cord is a spring: pulling stretches it, letting go makes it bounce back
+       and sway. Past a threshold the lights switch, like a real light cord. */
+    var swing = document.getElementById('cord-swing');
+    var REST_LONG = 48, REST_SHORT = 10, PULL_AT = 26, MAX_PULL = 64;
+    var rest = REST_LONG;
+    var cs = { y: 0, vy: 0, a: 0, va: 0 };     // y: extra length (px), a: swing angle (deg)
+    var cordDrag = null, cordRunning = false, cordLast = 0, skipClick = false;
+    function cordUsed() { try { return localStorage.getItem('cordUsed') === '1'; } catch (e) { return false; } }
+    function markCordUsed() {
+      swing.classList.add('used');
+      try { localStorage.setItem('cordUsed', '1'); } catch (e) { /* storage unavailable */ }
+    }
+    if (cordUsed()) { swing.classList.add('used'); }
+    function cordPaint() {
+      swing.style.setProperty('--len', (rest + cs.y).toFixed(1) + 'px');
+      swing.style.transform = 'rotate(' + cs.a.toFixed(2) + 'deg)';
+    }
+    function cordStep(t) {
+      var dt = Math.min(0.032, (t - cordLast) / 1000);
+      cordLast = t;
+      if (!cordDrag) {
+        cs.vy += (-170 * cs.y - 7 * cs.vy) * dt;
+        cs.y += cs.vy * dt;
+        cs.va += (-90 * cs.a - 4.2 * cs.va) * dt;
+        cs.a += cs.va * dt;
+      }
+      cordPaint();
+      var still = !cordDrag && Math.abs(cs.y) < 0.05 && Math.abs(cs.vy) < 0.5 && Math.abs(cs.a) < 0.05 && Math.abs(cs.va) < 0.5;
+      if (still) { cs.y = cs.vy = cs.a = cs.va = 0; cordPaint(); cordRunning = false; return; }
+      requestAnimationFrame(cordStep);
+    }
+    function cordKick() {
+      if (reduceMotion || cordRunning) { return; }
+      cordRunning = true;
+      cordLast = performance.now();
+      requestAnimationFrame(cordStep);
+    }
+    cordPaint();
+
+    cordHandle.addEventListener('click', function () {
+      if (skipClick) { skipClick = false; return; }   // a drag already handled it
+      markCordUsed();
+      cs.vy = 380; cs.va = 30;                         // a quick tug
+      toggleTheme();
+      cordKick();
     });
+
+    if (!reduceMotion) {
+      cordHandle.addEventListener('pointerdown', function (e) {
+        cordDrag = { x: e.clientX, y: e.clientY, moved: false, toggled: false };
+        cordHandle.setPointerCapture(e.pointerId);
+      });
+      cordHandle.addEventListener('pointermove', function (e) {
+        if (!cordDrag) { return; }
+        var dx = e.clientX - cordDrag.x, dy = e.clientY - cordDrag.y;
+        if (Math.abs(dx) + Math.abs(dy) > 4) { cordDrag.moved = true; }
+        cs.y = dy > 0 ? MAX_PULL * (1 - Math.exp(-dy / 55)) : 0;   // gets harder to pull the further you go
+        cs.a = Math.max(-14, Math.min(14, dx * 0.18));
+        cs.vy = 0; cs.va = 0;
+        if (!cordDrag.toggled && cs.y >= PULL_AT) {
+          cordDrag.toggled = true;
+          markCordUsed();
+          toggleTheme();
+        }
+        cordKick();
+      });
+      var cordRelease = function () {
+        if (!cordDrag) { return; }
+        if (cordDrag.moved) { skipClick = true; }
+        cordDrag = null;
+        cordKick();
+      };
+      cordHandle.addEventListener('pointerup', cordRelease);
+      cordHandle.addEventListener('pointercancel', cordRelease);
+
+      // One gentle swing a moment after load, so people notice the cord is alive
+      if (!cordUsed()) {
+        setTimeout(function () { cs.va = 36; cordKick(); }, 900);
+      }
+      // The cord shortens to a stub once the page is scrolled, so it stays out of the way
+      var scrolledCord = false;
+      var cordScroll = function () {
+        var s = window.scrollY > 60;
+        if (s === scrolledCord) { return; }
+        scrolledCord = s;
+        var next = s ? REST_SHORT : REST_LONG;
+        cs.y += rest - next;                           // keep the same visible length, then let the spring retract it
+        rest = next;
+        cordKick();
+      };
+      window.addEventListener('scroll', cordScroll, { passive: true });
+      cordScroll();
+    }
 
     var menuBtn = document.getElementById('menu-btn');
     var nav = document.getElementById('main-nav');
@@ -304,6 +414,35 @@
       } else { toast('Copy is not available in this browser.'); }
     });
   });
+
+  /* ---------- Foil card: tilts toward the pointer and catches the light ---------- */
+  var canHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (canHover && !calm) {
+    $all('.title-block').forEach(function (card) {
+      card.classList.add('foil');
+      var frame = null;
+      card.addEventListener('pointermove', function (e) {
+        var r = card.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width;
+        var py = (e.clientY - r.top) / r.height;
+        if (frame) { cancelAnimationFrame(frame); }
+        frame = requestAnimationFrame(function () {
+          card.classList.add('active');
+          card.style.setProperty('--rx', ((0.5 - py) * 9).toFixed(2) + 'deg');
+          card.style.setProperty('--ry', ((px - 0.5) * 11).toFixed(2) + 'deg');
+          card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+          card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+          card.style.setProperty('--hue', Math.round(px * 220 + py * 90));
+        });
+      });
+      card.addEventListener('pointerleave', function () {
+        if (frame) { cancelAnimationFrame(frame); }
+        card.classList.remove('active');
+        ['--rx', '--ry', '--mx', '--my', '--hue'].forEach(function (p) { card.style.removeProperty(p); });
+      });
+    });
+  }
 
   /* ---------- "Surprise me" (journal) ---------- */
   $all('[data-random]').forEach(function (b) {
