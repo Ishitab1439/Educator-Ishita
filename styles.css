@@ -306,8 +306,15 @@ details.principle p { font-size: 1rem; line-height: 1.5; color: var(--muted); ma
 .site-footer nav a { color: var(--ink); }
 .toast { position: fixed; left: 50%; bottom: 1.5rem; transform: translateX(-50%); background: var(--ink); color: var(--on-ink); font-family: var(--display); font-weight: 500; padding: .7rem 1.4rem; border-radius: 999px; z-index: 200; }
 
+/* ---------- Maker strip (home) ---------- */
+.maker-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.maker-grid .ph { aspect-ratio: 1; }
+.maker-grid h3 { font-size: 1.15rem; margin: .9rem 0 .25rem; }
+.maker-grid p { font-size: 1rem; line-height: 1.5; margin: 0; color: var(--muted); }
+
 /* ---------- Small screens ---------- */
 @media (max-width: 900px) {
+  .maker-grid { grid-template-columns: repeat(2, 1fr); }
   .hero .wrap, .two-col, .lead-grid, .contact-grid, .cycle, .site-footer .wrap, .feature-ignite, .ignite-strip .wrap { grid-template-columns: 1fr; }
   .path-panel { grid-template-columns: 1fr; }
   .path-panel a, .path-panel a + a { padding: 1rem 0; border-left: 0; border-bottom: 1px solid var(--line); }
@@ -327,6 +334,7 @@ details.principle p { font-size: 1rem; line-height: 1.5; color: var(--muted); ma
 }
 @media (max-width: 560px) {
   body { font-size: 1.05rem; }
+  .maker-grid { grid-template-columns: 1fr; }
   .work, .work.wide { grid-column: span 12; }
   .skill { grid-template-columns: 1fr; }
   .skill .ph { aspect-ratio: 16 / 9; }
