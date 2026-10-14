@@ -38,6 +38,28 @@
       </div>
     </div>
   </section>
+
+  <!-- Claw game: wins reveal the email from the "Copy my email" button above. Delete this section to remove it. -->
+  <section class="claw-sec">
+    <div class="wrap" style="max-width:760px">
+      <h2>Prove you are human. Win the claw.</h2>
+      <p>Catch the gold capsule with the @ on it and I will hand over my email.</p>
+      <div class="claw" data-claw>
+        <div class="claw-box" role="img" aria-label="A claw machine game with five capsules"></div>
+        <div class="claw-ctl">
+          <button type="button" class="btn solid" data-claw-drop>Drop the claw</button>
+          <span class="claw-nudge" hidden><button type="button" class="icon-btn" data-dir="l" aria-label="Move claw left">&larr;</button><button type="button" class="icon-btn" data-dir="r" aria-label="Move claw right">&rarr;</button></span>
+          <span class="claw-status" aria-live="polite"></span>
+        </div>
+        <div class="claw-win" hidden>
+          <strong>You are officially human.</strong>
+          <a data-claw-mail href="mailto:you@example.com">you@example.com</a>
+          <button type="button" class="btn line" data-claw-copy>Copy it</button>
+          <button type="button" class="btn line" data-claw-again>Play again</button>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <div id="site-footer"></div>

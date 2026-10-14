@@ -340,6 +340,73 @@ html.theme-fade, html.theme-fade *, html.theme-fade *::before, html.theme-fade *
 .btn, .filters button, .icon-btn { transition: transform .45s cubic-bezier(.34, 1.9, .5, 1), background .15s ease, color .15s ease; }
 .btn:active, .filters button:active, .icon-btn:active { transform: scale(.93, 1.08) translateY(1px); transition-duration: .08s; }
 
+/* Sawdust, the squishy workshop buddy */
+.blob-wrap { display: flex; align-items: center; gap: .9rem; margin-top: 1.6rem; }
+.blob-btn { background: none; border: 0; padding: 0; cursor: pointer; width: 92px; flex: none; animation: blob-breathe 3.2s ease-in-out infinite; transform-origin: 50% 100%; }
+.blob-svg { display: block; width: 100%; height: auto; transform-origin: 50% 100%; overflow: visible; }
+.blob-bubble { position: relative; margin: 0; padding: .55rem .9rem; background: var(--surface); border: 2px solid var(--ink); border-radius: 14px; font-family: var(--display); font-weight: 500; font-size: .95rem; max-width: 22ch; }
+.blob-bubble::before { content: ""; position: absolute; left: -9px; top: 50%; width: 14px; height: 14px; margin-top: -7px; background: var(--surface); border-left: 2px solid var(--ink); border-bottom: 2px solid var(--ink); transform: rotate(45deg); }
+@keyframes blob-breathe { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.03, .97); } }
+
+/* Journal book: opens, then turns its pages */
+.book { margin-top: 1.6rem; --pw: 150px; --ph: 200px; }
+.book-stage { position: relative; width: calc(var(--pw) * 2); height: var(--ph); perspective: 1300px; transition: transform .8s cubic-bezier(.3, 1.2, .4, 1); }
+.book[data-state="0"] .book-stage { transform: translateX(calc(var(--pw) * -.5)); }
+.book-base, .leaf { position: absolute; left: 50%; top: 0; width: 50%; height: 100%; }
+.book-base { background: var(--surface); border: 2px solid var(--ink); border-radius: 2px 8px 8px 2px; z-index: 0; }
+.leaf { transform-origin: left center; transform-style: preserve-3d; transition: transform .9s cubic-bezier(.3, 1.15, .4, 1); cursor: pointer; }
+.leaf.turned { transform: rotateY(-180deg); }
+.face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; background: var(--surface); border: 2px solid var(--ink); }
+.face.front { border-radius: 2px 8px 8px 2px; }
+.face.back { transform: rotateY(180deg); border-radius: 8px 2px 2px 8px; }
+.face.cover { background: var(--ink); color: var(--on-ink); display: flex; flex-direction: column; justify-content: flex-end; padding: 1rem; gap: .4rem; }
+.face.cover strong { font-family: var(--display); font-size: 1.15rem; line-height: 1.15; }
+.face.cover small { font-family: var(--display); text-transform: uppercase; letter-spacing: .12em; color: var(--tape); }
+.pg { padding: .9rem .85rem; height: 100%; display: flex; flex-direction: column; gap: .35rem; }
+.pg small { font-family: var(--display); font-weight: 700; color: var(--muted); }
+.pg h3 { font-size: 1.05rem; margin: 0; }
+.pg p { font-size: .88rem; line-height: 1.35; margin: 0; }
+.pg .btn { margin-top: auto; text-align: center; padding: .5rem .6rem; font-size: .85rem; }
+.book-ctl { display: flex; gap: .6rem; margin-top: 1rem; }
+.book-ctl button:disabled { opacity: .4; cursor: default; }
+
+/* Crumple: toss a rough day in the bin */
+.crumple h2 + p { margin-top: .6rem; }
+.crumple-stage { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: end; margin-top: 1.6rem; max-width: 760px; }
+.note { background: var(--surface); border: 2px solid var(--ink); border-radius: 6px; padding: 1rem; display: flex; flex-direction: column; gap: .6rem; transform: rotate(-.6deg); }
+.note label { font-family: var(--display); font-weight: 600; font-size: .95rem; }
+.note textarea { width: 100%; resize: none; font: inherit; color: var(--text); background: transparent; border: 0; border-bottom: 1px dashed var(--line); padding: .3rem 0; outline: 0; }
+.note textarea:focus { border-bottom-color: var(--ink); }
+.note .btn { align-self: flex-start; }
+.bin { position: relative; width: 84px; height: 96px; border: 3px solid var(--ink); border-top-width: 6px; border-radius: 4px 4px 14px 14px; background: repeating-linear-gradient(90deg, transparent 0 9px, var(--line) 9px 11px); display: grid; place-items: end center; padding-bottom: .4rem; transform-origin: 50% 100%; }
+.bin-count { font-family: var(--display); font-weight: 700; background: var(--tape); color: #1E3A34; min-width: 1.8rem; text-align: center; border-radius: 99px; padding: 0 .4rem; }
+.bin.bounce { animation: bin-bounce .5s cubic-bezier(.3, 1.8, .5, 1); }
+@keyframes bin-bounce { 0% { transform: scale(1.12, .86); } 60% { transform: scale(.95, 1.07); } 100% { transform: scale(1); } }
+.paper { position: absolute; z-index: 5; background: var(--surface); border: 2px solid var(--ink); padding: 1rem; overflow: hidden; pointer-events: none; font-family: var(--body); font-size: .95rem; box-shadow: 0 4px 10px rgba(0, 0, 0, .15); }
+.paper::after { content: ""; position: absolute; inset: 0; background: conic-gradient(from 20deg, rgba(0,0,0,.18), rgba(255,255,255,.35), rgba(0,0,0,.2), rgba(255,255,255,.3), rgba(0,0,0,.18)); }
+.crumple-msg { min-height: 1.6em; margin-top: 1rem; font-family: var(--display); font-weight: 500; }
+
+/* Claw machine */
+.claw-sec h2 + p { margin-top: .6rem; }
+.claw { margin-top: 1.4rem; }
+.claw-box { position: relative; height: 250px; overflow: hidden; border: 3px solid #1E3A34; border-radius: 14px; background: linear-gradient(180deg, #2a4f47, #1E3A34); }
+.claw-box::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 12px; background: repeating-linear-gradient(90deg, #F0B90B 0 14px, #1E3A34 14px 28px); }
+.claw-box::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34px; background: #14282A; border-top: 3px solid #F0B90B; }
+.claw-arm { position: absolute; left: 0; top: 12px; width: 40px; z-index: 3; }
+.claw-arm .cable { position: absolute; left: 19px; top: 0; width: 2px; background: #EEF1EF; }
+.claw-arm .head { position: absolute; left: 6px; width: 28px; height: 26px; background: #EEF1EF; border-radius: 6px 6px 0 0; }
+.claw-arm .head b { position: absolute; bottom: -10px; width: 6px; height: 18px; background: #EEF1EF; border-radius: 0 0 6px 6px; }
+.claw-arm .head b:first-child { left: -3px; transform: rotate(18deg); }
+.claw-arm .head b:last-child { right: -3px; transform: rotate(-18deg); }
+.prize { position: absolute; bottom: 34px; width: 38px; height: 38px; border-radius: 50%; border: 3px solid #14282A; display: grid; place-items: center; font-family: var(--display); font-weight: 800; color: #1E3A34; z-index: 2; }
+.prize.held { z-index: 4; }
+.prize.opened { box-shadow: 0 0 0 6px rgba(240, 185, 11, .35); }
+.claw-ctl { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; margin-top: 1rem; }
+.claw-nudge { display: inline-flex; gap: .4rem; }
+.claw-status { font-family: var(--display); font-weight: 500; }
+.claw-win { margin-top: 1rem; padding: 1rem 1.2rem; border: 2px solid var(--ink); border-radius: 10px; background: var(--surface); display: flex; flex-wrap: wrap; gap: .8rem 1rem; align-items: center; font-family: var(--display); }
+.claw-win[hidden], .claw-nudge[hidden] { display: none; }
+
 /* ---------- Small screens ---------- */
 @media (max-width: 900px) {
   .maker-grid { grid-template-columns: repeat(2, 1fr); }
@@ -373,10 +440,16 @@ html.theme-fade, html.theme-fade *, html.theme-fade *::before, html.theme-fade *
   .title-block .row.two { grid-template-columns: 1fr; }
   .title-block .cell + .cell { border-left: 0; border-top: 1px solid var(--ink); }
   .search { width: 100%; }
+  .book { --pw: 128px; --ph: 190px; }
+  .crumple-stage { grid-template-columns: 1fr; }
+  .bin { justify-self: end; }
+  .blob-btn { width: 78px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .btn, .filters button, .icon-btn, .work-open::after, .cycle .seg path { transition: none; }
   .foil, .foil::after { transition: none; }
   html.theme-fade, html.theme-fade * { transition: none !important; }
+  .blob-btn, .bin.bounce { animation: none; }
+  .leaf, .book-stage { transition: none; }
 }

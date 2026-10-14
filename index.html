@@ -29,6 +29,8 @@
           <a class="btn solid" href="design-skills.html">See what I make</a>
           <a class="btn line" href="teaching.html">Explore my teaching</a>
         </div>
+        <!-- Sawdust, the workshop buddy. Delete this line to remove it. -->
+        <div class="blob-wrap" data-blob></div>
       </div>
 
       <!-- Title block: the corner of a technical drawing, used here as a quick profile -->
@@ -166,6 +168,16 @@
         <h2>From my journal</h2>
         <p style="margin-top:1rem;color:var(--muted)">Short reflections on problems I faced, what I tried and what I learned.</p>
         <p><a class="see-all" href="journal.html">Read all entries</a></p>
+        <!-- Book: each reflection follows these four parts. Edit the words on the pages. -->
+        <div class="book" data-book data-state="0">
+          <div class="book-stage">
+            <div class="book-base"><div class="pg"><small>Next</small><p>Read the latest entries.</p><a class="btn solid" href="journal.html">Open the journal</a></div></div>
+            <div class="leaf"><div class="face front cover"><small>Journal</small><strong>Four parts to every entry</strong></div><div class="face back"><div class="pg"><small>1</small><h3>The situation</h3><p>What was happening, and what was at stake.</p></div></div></div>
+            <div class="leaf"><div class="face front"><div class="pg"><small>2</small><h3>What I tried</h3><p>The decision I made, and why.</p></div></div><div class="face back"><div class="pg"><small>3</small><h3>What happened</h3><p>The honest result, wobbles included.</p></div></div></div>
+            <div class="leaf"><div class="face front"><div class="pg"><small>4</small><h3>What I learned</h3><p>What I would keep, and what I would change.</p></div></div><div class="face back"><div class="pg"><small>Tip</small><p>Short, specific and true beats polished.</p></div></div></div>
+          </div>
+          <div class="book-ctl"><button type="button" class="icon-btn" data-book-prev>Back</button><button type="button" class="icon-btn" data-book-next>Open the book</button></div>
+        </div>
       </div>
       <ul class="entries">
         <!-- EDIT: your two latest entries -->

@@ -444,6 +444,254 @@
     });
   }
 
+  /* ---------- Reduced-motion check shared by the toys below ---------- */
+  var calmToys = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Sawdust, the squishy workshop buddy (home) ---------- */
+  $all('[data-blob]').forEach(function (host) {
+    var quips = [
+      'Measure twice, cut once.',
+      'I am 100% recycled sawdust.',
+      'Sand it. Then sand it again.',
+      'Ask me about the design cycle.',
+      'Ouch! Okay, that one was fair.',
+      'Every prototype is a good question.',
+      'IGNITE is on 5 and 6 November.',
+      'My favourite tool is the next iteration.'
+    ];
+    host.innerHTML =
+      '<button type="button" class="blob-btn" aria-label="Poke Sawdust, the workshop buddy">' +
+      '<svg class="blob-svg" viewBox="0 0 120 110" aria-hidden="true">' +
+      '<path d="M60 6c27 0 51 17 52 46 1 29-21 52-52 52S8 83 8 54C8 25 33 6 60 6z" fill="#F0B90B" stroke="#1E3A34" stroke-width="3"/>' +
+      '<path d="M26 34c6-10 16-16 28-17" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="5" stroke-linecap="round"/>' +
+      '<g><circle cx="42" cy="54" r="10" fill="#fff" stroke="#1E3A34" stroke-width="2.5"/><circle class="pupil" cx="42" cy="54" r="4.5" fill="#1E3A34"/></g>' +
+      '<g><circle cx="78" cy="54" r="10" fill="#fff" stroke="#1E3A34" stroke-width="2.5"/><circle class="pupil" cx="78" cy="54" r="4.5" fill="#1E3A34"/></g>' +
+      '<path class="mouth" d="M48 78q12 9 24 0" fill="none" stroke="#1E3A34" stroke-width="3" stroke-linecap="round"/>' +
+      '</svg></button>' +
+      '<p class="blob-bubble" aria-live="polite">Hi, I am Sawdust. Poke me.</p>';
+    var btn = host.querySelector('.blob-btn');
+    var svg = host.querySelector('.blob-svg');
+    var bubble = host.querySelector('.blob-bubble');
+    var pupils = $all('.pupil', host);
+    var mouth = host.querySelector('.mouth');
+    var x = 0, v = 0, raf = 0, last = 0, qi = -1;
+
+    function frame(t) {
+      var dt = Math.min(.032, (t - last) / 1000 || .016); last = t;
+      v += (-170 * x - 7 * v) * dt;             // spring: pulls back to rest, damping slows it
+      x += v * dt;
+      svg.style.transform = 'scale(' + (1 + x * .28).toFixed(3) + ',' + (1 - x * .28).toFixed(3) + ')';
+      if (Math.abs(x) > .002 || Math.abs(v) > .02) { raf = requestAnimationFrame(frame); }
+      else { raf = 0; svg.style.transform = ''; }
+    }
+    function squish() {
+      x = calmToys ? 0 : .9; v = 0;
+      if (!calmToys && !raf) { last = performance.now(); raf = requestAnimationFrame(frame); }
+      var n; do { n = Math.floor(Math.random() * quips.length); } while (n === qi);
+      qi = n; bubble.textContent = quips[n];
+      mouth.setAttribute('d', 'M46 76q14 20 28 0');
+      setTimeout(function () { mouth.setAttribute('d', 'M48 78q12 9 24 0'); }, 450);
+    }
+    btn.addEventListener('click', squish);
+
+    var pend = 0, px = 0, py = 0;
+    window.addEventListener('pointermove', function (e) {
+      px = e.clientX; py = e.clientY;
+      if (pend) { return; }
+      pend = requestAnimationFrame(function () {
+        pend = 0;
+        var r = svg.getBoundingClientRect();
+        var dx = px - (r.left + r.width / 2), dy = py - (r.top + r.height * .45);
+        var d = Math.sqrt(dx * dx + dy * dy) || 1, m = Math.min(4.5, d / 40);
+        pupils.forEach(function (p) { p.setAttribute('transform', 'translate(' + (dx / d * m).toFixed(2) + ' ' + (dy / d * m).toFixed(2) + ')'); });
+      });
+    }, { passive: true });
+  });
+
+  /* ---------- Journal book: opens, then turns its pages (home) ---------- */
+  $all('[data-book]').forEach(function (book) {
+    var leaves = $all('.leaf', book);
+    var openBtn = book.querySelector('[data-book-next]');
+    var backBtn = book.querySelector('[data-book-prev]');
+    var turned = 0;
+    function render() {
+      leaves.forEach(function (l, i) {
+        var done = i < turned;
+        l.classList.toggle('turned', done);
+        l.style.zIndex = done ? i + 1 : leaves.length - i;
+      });
+      book.setAttribute('data-state', turned);
+      backBtn.disabled = turned === 0;
+      openBtn.disabled = turned === leaves.length;
+      openBtn.textContent = turned === 0 ? 'Open the book' : 'Turn the page';
+    }
+    openBtn.addEventListener('click', function () { if (turned < leaves.length) { turned++; render(); } });
+    backBtn.addEventListener('click', function () { if (turned > 0) { turned--; render(); } });
+    $all('.leaf', book).forEach(function (l, i) {
+      l.addEventListener('click', function (e) {
+        if (e.target.closest('a')) { return; }
+        if (i === turned) { turned++; } else if (i === turned - 1) { turned--; } else { return; }
+        render();
+      });
+    });
+    render();
+  });
+
+  /* ---------- Crumple a rough day into a paper ball (journal) ---------- */
+  $all('[data-crumple]').forEach(function (sec) {
+    var stage = sec.querySelector('.crumple-stage');
+    var area = sec.querySelector('textarea');
+    var go = sec.querySelector('[data-crumple-go]');
+    var bin = sec.querySelector('.bin');
+    var count = sec.querySelector('.bin-count');
+    var msg = sec.querySelector('.crumple-msg');
+    var n = 0, busy = false;
+    var lines = ['Gone. It already taught you something.', 'Into the bin. Keep the lesson, lose the weight.', 'Crumpled. Tomorrow is a fresh sheet.', 'Every great unit has a few of these behind it.'];
+
+    function finish() {
+      n++; count.textContent = n; busy = false; go.disabled = false;
+      msg.textContent = lines[n % lines.length];
+      bin.classList.remove('bounce'); void bin.offsetWidth; bin.classList.add('bounce');
+    }
+    go.addEventListener('click', function () {
+      var text = area.value.trim();
+      if (busy) { return; }
+      if (!text) { msg.textContent = 'Write one thing that went wrong first, then crumple it.'; area.focus(); return; }
+      busy = true; go.disabled = true; msg.textContent = '';
+      var s = stage.getBoundingClientRect(), a = area.getBoundingClientRect(), b = bin.getBoundingClientRect();
+      var paper = document.createElement('div');
+      paper.className = 'paper';
+      paper.setAttribute('aria-hidden', 'true');
+      paper.innerHTML = '<span class="paper-text"></span>';
+      paper.firstChild.textContent = text;
+      paper.style.left = (a.left - s.left) + 'px'; paper.style.top = (a.top - s.top) + 'px';
+      paper.style.width = a.width + 'px'; paper.style.height = a.height + 'px';
+      stage.appendChild(paper);
+      area.value = '';
+      if (calmToys || !paper.animate) { paper.remove(); finish(); return; }
+      var dx = (b.left + b.width / 2) - (a.left + a.width / 2);
+      var dy = (b.top + b.height * .35) - (a.top + a.height / 2);
+      var anim = paper.animate([
+        { transform: 'translate(0,0) scale(1) rotate(0deg)', borderRadius: '6px', offset: 0 },
+        { transform: 'translate(0,-10px) scale(.2) rotate(200deg)', borderRadius: '50%', offset: .32, easing: 'cubic-bezier(.3,.7,.4,1)' },
+        { transform: 'translate(' + (dx * .55) + 'px,' + (Math.min(dy, 0) - 110) + 'px) scale(.2) rotate(420deg)', borderRadius: '50%', offset: .66, easing: 'cubic-bezier(.5,0,.9,.6)' },
+        { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(.2) rotate(640deg)', borderRadius: '50%', offset: 1 }
+      ], { duration: 1150, fill: 'forwards' });
+      paper.querySelector('.paper-text').animate([{ opacity: 1 }, { opacity: 0, offset: .22 }, { opacity: 0 }], { duration: 1150, fill: 'forwards' });
+      anim.onfinish = function () { paper.remove(); finish(); };
+    });
+  });
+
+  /* ---------- Claw machine: win it to reveal my email (contact) ---------- */
+  $all('[data-claw]').forEach(function (root) {
+    var box = root.querySelector('.claw-box');
+    var dropBtn = root.querySelector('[data-claw-drop]');
+    var status = root.querySelector('.claw-status');
+    var win = root.querySelector('.claw-win');
+    var nudge = root.querySelector('.claw-nudge');
+    var src = document.querySelector('[data-copy]');
+    var email = src ? src.getAttribute('data-copy') : 'you@example.com';
+    var colours = ['#E4DCC8', '#9FC7BB', '#F2A58E', '#B9B2E0', '#D7E9E2'];
+    var W = 0, H = 0, CAP = 38;
+    var claw = document.createElement('div'); claw.className = 'claw-arm';
+    claw.innerHTML = '<i class="cable"></i><i class="head"><b></b><b></b></i>';
+    var prizes = [];
+    var state = 'sweep', cx = 20, dir = 1, cable = 14, grabbed = null, last = 0, raf = 0, visible = true, goldIx = 0;
+    var SPEED = 95, REST = 14;
+
+    function layout() {
+      W = box.clientWidth; H = box.clientHeight;
+      prizes.forEach(function (p, i) { p.x = (i + .5) * (W / prizes.length); p.el.style.left = (p.x - CAP / 2) + 'px'; });
+    }
+    function reset() {
+      $all('.prize', box).forEach(function (p) { p.remove(); });
+      prizes = []; goldIx = Math.floor(Math.random() * 5);
+      for (var i = 0; i < 5; i++) {
+        var el = document.createElement('div');
+        el.className = 'prize' + (i === goldIx ? ' gold' : '');
+        el.style.background = i === goldIx ? '#F0B90B' : colours[i % colours.length];
+        if (i === goldIx) { el.textContent = '@'; }
+        box.appendChild(el); prizes.push({ el: el, x: 0, gold: i === goldIx });
+      }
+      box.appendChild(claw);
+      layout();
+      state = 'sweep'; cable = REST; grabbed = null; dropBtn.disabled = false;
+    }
+    function draw() {
+      claw.style.transform = 'translateX(' + (cx - 20) + 'px)';
+      claw.firstChild.style.height = cable + 'px';
+      claw.lastChild.style.top = cable + 'px';
+      if (grabbed) { grabbed.el.style.left = (cx - CAP / 2) + 'px'; grabbed.el.style.bottom = 'auto'; grabbed.el.style.top = (cable + 26) + 'px'; }
+    }
+    function floorReach() { return H - 34 - CAP - 26; }
+    function step(t) {
+      var dt = Math.min(.04, (t - last) / 1000 || .016); last = t;
+      if (visible && !document.hidden) {
+        if (state === 'sweep' && !calmToys) {
+          cx += dir * SPEED * dt;
+          if (cx > W - 24) { cx = W - 24; dir = -1; } else if (cx < 24) { cx = 24; dir = 1; }
+        } else if (state === 'down') {
+          cable += 230 * dt;
+          if (cable >= floorReach()) { cable = floorReach(); grab(); }
+        } else if (state === 'up') {
+          cable -= 160 * dt;
+          if (cable <= REST) { cable = REST; arrived(); }
+        }
+        draw();
+      }
+      raf = requestAnimationFrame(step);
+    }
+    function grab() {
+      var best = null, bd = 999;
+      prizes.forEach(function (p) { if (!p.taken) { var d = Math.abs(p.x - cx); if (d < bd) { bd = d; best = p; } } });
+      if (best && bd < 20) {
+        grabbed = best; best.el.style.left = ''; best.el.classList.add('held');
+        status.textContent = best.gold ? 'You got it!' : 'Got something...';
+      } else { status.textContent = 'Just air. Line it up and try again.'; }
+      state = 'up';
+    }
+    function arrived() {
+      if (grabbed && grabbed.gold) {
+        state = 'won'; win.hidden = false; dropBtn.disabled = true;
+        status.textContent = 'You are officially human.';
+        grabbed.el.classList.add('opened'); grabbed.el.textContent = '';
+        return;
+      }
+      if (grabbed) {
+        status.textContent = 'An empty capsule. The gold one has an @ on it.';
+        grabbed.el.remove(); grabbed.taken = true;
+        grabbed = null;
+      }
+      state = 'sweep'; dropBtn.disabled = false;
+    }
+    dropBtn.addEventListener('click', function () {
+      if (state !== 'sweep') { return; }
+      state = 'down'; dropBtn.disabled = true; status.textContent = '';
+    });
+    if (nudge) {
+      nudge.addEventListener('click', function (e) {
+        var b = e.target.closest('button'); if (!b || state !== 'sweep') { return; }
+        cx = Math.max(24, Math.min(W - 24, cx + (b.getAttribute('data-dir') === 'l' ? -22 : 22)));
+      });
+      nudge.hidden = !calmToys;
+    }
+    var again = root.querySelector('[data-claw-again]');
+    if (again) { again.addEventListener('click', function () { win.hidden = true; status.textContent = ''; reset(); }); }
+    var cp = root.querySelector('[data-claw-copy]');
+    if (cp) { cp.addEventListener('click', function () {
+      var done = function () { toast('Copied: ' + email); };
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(email).then(done, function () { toast('Copy failed. Please copy it by hand.'); }); } else { toast('Copy is not available in this browser.'); }
+    }); }
+    var mail = root.querySelector('[data-claw-mail]');
+    if (mail) { mail.href = 'mailto:' + email; mail.textContent = email; }
+
+    if ('IntersectionObserver' in window) { new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }).observe(box); }
+    window.addEventListener('resize', layout);
+    reset(); cx = W / 2;
+    draw();
+    last = performance.now(); raf = requestAnimationFrame(step);
+  });
+
   /* ---------- "Surprise me" (journal) ---------- */
   $all('[data-random]').forEach(function (b) {
     b.addEventListener('click', function () {

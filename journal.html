@@ -62,6 +62,23 @@
       <p class="empty" hidden>No entries in this group yet.</p>
     </div>
   </section>
+
+  <!-- Crumple toy: the words are never saved or sent anywhere. Delete this whole section to remove it. -->
+  <section class="band-birch crumple" data-crumple>
+    <div class="wrap">
+      <h2>Had a rough lesson? Crumple it.</h2>
+      <p>Type one thing that went wrong this week and toss it. Nothing is saved or sent. The lesson stays, the weight goes.</p>
+      <div class="crumple-stage">
+        <div class="note">
+          <label for="mistake">Something that did not go to plan</label>
+          <textarea id="mistake" maxlength="140" rows="3" placeholder="The glue did not hold..."></textarea>
+          <button type="button" class="btn solid" data-crumple-go>Crumple it</button>
+        </div>
+        <div class="bin" aria-hidden="true"><span class="bin-count">0</span></div>
+      </div>
+      <p class="crumple-msg" aria-live="polite"></p>
+    </div>
+  </section>
 </main>
 
 <div id="site-footer"></div>
