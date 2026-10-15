@@ -297,24 +297,15 @@
     activate(0);
   }
 
-  /* ---------- Countdown (IGNITE) ---------- */
-  $all('[data-countdown]').forEach(function (el) {
-    var target = new Date(el.getAttribute('data-countdown')).getTime();
-    var now = Date.now();
-    var num = el.querySelector('.cd-num');
-    var label = el.querySelector('.cd-label');
-    if (isNaN(target)) { return; }
-    if (now < target) {
-      var d = Math.ceil((target - now) / 864e5);
-      num.textContent = d;
-      label.textContent = d === 1 ? 'day to go' : 'days to go';
-    } else if (now < target + 2 * 864e5) {
-      num.textContent = 'Now';
-      label.textContent = 'IGNITE is on';
-    } else {
-      num.textContent = 'Held';
-      label.textContent = 'IGNITE 2026-27 took place';
+  /* ---------- Operations run-sheet (IGNITE page) ---------- */
+  $all('[data-runsheet]').forEach(function (sec) {
+    var boxes = $all('input[type=checkbox]', sec), count = sec.querySelector('[data-run-count]'), bar = sec.querySelector('.run-bar i'), done = sec.querySelector('.run-done');
+    function upd() {
+      var n = boxes.filter(function (b) { return b.checked; }).length;
+      count.textContent = n; bar.style.width = (n / boxes.length * 100) + '%'; done.hidden = n !== boxes.length;
     }
+    boxes.forEach(function (b) { b.addEventListener('change', upd); });
+    upd();
   });
 
   /* ---------- Filter and search (teaching, student work, journal) ---------- */
@@ -456,7 +447,7 @@
       'Ask me about the design cycle.',
       'Ouch! Okay, that one was fair.',
       'Every prototype is a good question.',
-      'IGNITE is on 5 and 6 November.',
+      'A good run-sheet is a love letter to the team.',
       'My favourite tool is the next iteration.'
     ];
     host.innerHTML =

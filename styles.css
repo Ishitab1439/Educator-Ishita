@@ -174,12 +174,31 @@ img.fill { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
 .cycle-panel p { font-size: 1.15rem; }
 .hint { font-family: var(--display); font-size: .92rem; color: var(--muted); margin: 1.2rem 0 0; }
 
-/* ---------- IGNITE countdown ---------- */
+/* ---------- IGNITE role badge and run-sheet ---------- */
 .ignite-strip .wrap { display: grid; grid-template-columns: 1fr auto; gap: 2.5rem; align-items: center; }
 .ignite-strip h2 { font-size: clamp(1.8rem, 3.6vw, 2.8rem); margin-bottom: .8rem; }
-.countdown { text-align: center; border: 2px solid var(--tape); padding: 1.2rem 2rem; min-width: 190px; }
-.countdown .cd-num { font-family: var(--display); font-weight: 800; font-size: clamp(3rem, 7vw, 5rem); line-height: 1; color: var(--tape); display: block; }
-.countdown .cd-label { font-family: var(--display); font-size: 1rem; font-weight: 500; display: block; margin-top: .4rem; }
+.role-badge { text-align: center; border: 2px solid var(--tape); padding: 1.2rem 1.6rem; min-width: 210px; transform: rotate(-2deg); transition: transform .5s cubic-bezier(.34, 1.9, .5, 1); }
+.role-badge:hover { transform: rotate(1deg) scale(1.04); }
+.role-badge small { display: block; font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-size: .75rem; opacity: .8; }
+.role-badge strong { display: block; font-family: var(--display); font-weight: 800; font-size: 1.5rem; line-height: 1.1; color: var(--tape); margin: .4rem 0 .2rem; }
+.role-badge span { font-family: var(--display); font-weight: 600; font-size: 1.1rem; }
+.feature .role-badge { border-color: var(--ink); }
+.feature .role-badge strong { color: var(--ink); }
+.run-prog { font-family: var(--display); font-weight: 600; margin: 1rem 0 .4rem; }
+.run-bar { height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; }
+.run-bar i { display: block; height: 100%; width: 0; background: var(--tape); transition: width .5s cubic-bezier(.34, 1.4, .5, 1); }
+.run-list { list-style: none; margin: 1.2rem 0 0; padding: 0; }
+.run-list li { border-bottom: 1px solid var(--line); }
+.run-list label { display: flex; gap: .9rem; padding: .9rem .2rem; cursor: pointer; align-items: flex-start; }
+.run-list input { appearance: none; -webkit-appearance: none; flex: none; width: 26px; height: 26px; margin-top: .1rem; border: 2px solid var(--ink); border-radius: 6px; background: var(--surface); display: grid; place-items: center; cursor: pointer; transition: transform .35s cubic-bezier(.34, 1.9, .5, 1), background .15s; }
+.run-list input:checked { background: var(--tape); transform: rotate(-6deg) scale(1.1); }
+.run-list input:checked::after { content: "\2713"; font-weight: 800; color: #1E3A34; }
+.run-list input:focus-visible { outline: 3px solid var(--tape); outline-offset: 3px; }
+.run-list b { display: block; font-family: var(--display); color: var(--ink); }
+.run-list span { color: var(--muted); }
+.run-list input:checked + span b { text-decoration: line-through; text-decoration-color: var(--tape); text-decoration-thickness: 3px; }
+.run-done { font-family: var(--display); font-weight: 600; margin-top: 1rem; }
+.run-done[hidden] { display: none; }
 
 /* ---------- Lists: resources, entries ---------- */
 .res-list, .entries { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
@@ -467,7 +486,7 @@ html[data-mood="kurenai"] { --tape: #EE7A7A; --tape2: #F5B3A2; }
   .voices { grid-template-columns: 1fr; gap: 2rem; }
   .lb-body { grid-template-columns: 1fr; padding: 1.2rem; }
   .cycle-panel { min-height: 0; }
-  .countdown { justify-self: start; }
+  .role-badge { justify-self: start; }
 }
 @media (max-width: 820px) {
   .menu-btn { display: inline-block; }
@@ -502,6 +521,6 @@ html[data-mood="kurenai"] { --tape: #EE7A7A; --tape2: #F5B3A2; }
   html.theme-fade, html.theme-fade * { transition: none !important; }
   .blob-btn, .bin.bounce { animation: none; }
   .leaf, .book-stage { transition: none; }
-  .vtile, .mood-sw { transition: none; }
+  .vtile, .mood-sw, .role-badge, .run-bar i, .run-list input { transition: none; }
   .vac-can.on { animation: none; }
 }
