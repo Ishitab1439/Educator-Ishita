@@ -126,6 +126,33 @@
       </ul>
     </div>
   </section>
+
+  <!-- Vacuum toy: pick tools and watch them get sucked into the kit. Edit the tool names freely. Delete this section to remove it. -->
+  <section class="band-birch">
+    <div class="wrap" data-vacuum>
+      <h2 class="sub-head">Pack my workshop kit</h2>
+      <p style="color:var(--muted)">Tap the tools you would take on a build day, then fire up the vacuum.</p>
+      <div class="vac-grid">
+        <div class="vtiles">
+          <button type="button" class="vtile" data-name="Tenon saw" aria-pressed="false"><b>&#9874;</b>Tenon saw</button>
+          <button type="button" class="vtile" data-name="Chisels" aria-pressed="false"><b>&#9998;</b>Chisels</button>
+          <button type="button" class="vtile" data-name="Sandpaper" aria-pressed="false"><b>&#9638;</b>Sandpaper</button>
+          <button type="button" class="vtile" data-name="Tape measure" aria-pressed="false"><b>&#9644;</b>Tape measure</button>
+          <button type="button" class="vtile" data-name="CAD laptop" aria-pressed="false"><b>&#9707;</b>CAD laptop</button>
+          <button type="button" class="vtile" data-name="Marking gauge" aria-pressed="false"><b>&#10010;</b>Marking gauge</button>
+          <button type="button" class="vtile" data-name="Clamps" aria-pressed="false"><b>&#9711;</b>Clamps</button>
+          <button type="button" class="vtile" data-name="Wood glue" aria-pressed="false"><b>&#9830;</b>Wood glue</button>
+        </div>
+        <div class="vac">
+          <div class="vac-nozzle" aria-hidden="true"></div>
+          <div class="vac-hose" aria-hidden="true"></div>
+          <div class="vac-can" aria-hidden="true">Kit</div>
+        </div>
+      </div>
+      <div class="actions"><button type="button" class="btn solid" data-vac-go disabled>Pick some tools first</button><button type="button" class="btn line" data-vac-reset hidden>Unpack the kit</button></div>
+      <p class="vac-out" aria-live="polite"></p>
+    </div>
+  </section>
 </main>
 
 <div id="site-footer"></div>

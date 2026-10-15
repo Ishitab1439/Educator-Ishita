@@ -692,6 +692,149 @@
     last = performance.now(); raf = requestAnimationFrame(step);
   });
 
+  /* ---------- Colour moods: traditional Japanese colours restyle the accent ---------- */
+  (function () {
+    var moods = [
+      ['yamabuki', 'Yamabuki', '#F0B90B'], ['sakura', 'Sakura', '#F4A7B9'], ['matcha', 'Matcha', '#A9CF7A'],
+      ['ai', 'Ai', '#8FB1E6'], ['kurenai', 'Kurenai', '#EE7A7A']
+    ];
+    var de = document.documentElement;
+    function setMood(id, save) {
+      de.setAttribute('data-mood', id);
+      $all('.mood-sw').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-mood') === id ? 'true' : 'false'); });
+      if (save) { try { localStorage.setItem('mood', id); } catch (e) {} }
+    }
+    var f = document.querySelector('.site-footer .wrap');
+    if (!f) { return; }
+    var row = document.createElement('div');
+    row.className = 'moods';
+    row.innerHTML = '<span>Accent colour</span>' + moods.map(function (m) {
+      return '<button type="button" class="mood-sw" data-mood="' + m[0] + '" style="--sw:' + m[2] + '" aria-pressed="false" aria-label="' + m[1] + ' accent" title="' + m[1] + '"></button>';
+    }).join('');
+    f.parentNode.appendChild(row);
+    row.addEventListener('click', function (e) {
+      var b = e.target.closest('.mood-sw'); if (!b) { return; }
+      de.classList.add('theme-fade'); setTimeout(function () { de.classList.remove('theme-fade'); }, 500);
+      setMood(b.getAttribute('data-mood'), true);
+    });
+    var saved = 'yamabuki';
+    try { saved = localStorage.getItem('mood') || 'yamabuki'; } catch (e) {}
+    setMood(saved, false);
+  })();
+
+  /* ---------- Vacuum: pick tools, suck them into the kit (design skills) ---------- */
+  $all('[data-vacuum]').forEach(function (root) {
+    var tiles = $all('.vtile', root), go = root.querySelector('[data-vac-go]'), reset = root.querySelector('[data-vac-reset]');
+    var nozzle = root.querySelector('.vac-nozzle'), can = root.querySelector('.vac-can'), out = root.querySelector('.vac-out');
+    var packed = [], busy = false;
+    function sync() { var n = tiles.filter(function (t) { return t.getAttribute('aria-pressed') === 'true'; }).length; go.disabled = busy || n === 0; go.textContent = n ? 'Vacuum up ' + n + (n === 1 ? ' tool' : ' tools') : 'Pick some tools first'; }
+    tiles.forEach(function (t) { t.addEventListener('click', function () { if (busy || t.classList.contains('gone')) { return; } t.setAttribute('aria-pressed', t.getAttribute('aria-pressed') === 'true' ? 'false' : 'true'); sync(); }); });
+    go.addEventListener('click', function () {
+      var sel = tiles.filter(function (t) { return t.getAttribute('aria-pressed') === 'true'; });
+      if (!sel.length) { return; }
+      busy = true; go.disabled = true;
+      var nr = nozzle.getBoundingClientRect(), done = 0;
+      can.classList.add('on');
+      sel.forEach(function (t, i) {
+        var r = t.getBoundingClientRect();
+        var dx = nr.left + nr.width / 2 - (r.left + r.width / 2), dy = nr.top + nr.height / 2 - (r.top + r.height / 2);
+        var finish = function () {
+          t.classList.add('gone'); t.setAttribute('aria-pressed', 'false'); t.style.visibility = 'hidden';
+          packed.push(t.getAttribute('data-name')); done++;
+          if (done === sel.length) {
+            busy = false; can.classList.remove('on'); sync();
+            out.textContent = 'In the kit: ' + packed.join(', ') + '.'; reset.hidden = false;
+          }
+        };
+        if (calmToys || !t.animate) { finish(); return; }
+        t.style.zIndex = 5;
+        var a = t.animate([
+          { transform: 'none', opacity: 1 },
+          { transform: 'translate(' + (-dx * .06) + 'px,' + (-dy * .06) + 'px) scale(1.08)', offset: .15 },
+          { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(.12) rotate(' + (i % 2 ? 200 : -200) + 'deg)', opacity: .2 }
+        ], { duration: 750, delay: i * 140, easing: 'cubic-bezier(.6,.0,.9,.5)', fill: 'forwards' });
+        a.onfinish = finish;
+      });
+    });
+    reset.addEventListener('click', function () {
+      tiles.forEach(function (t) { t.classList.remove('gone'); t.style.visibility = ''; t.style.zIndex = ''; t.getAnimations && t.getAnimations().forEach(function (a) { a.cancel(); }); });
+      packed = []; out.textContent = ''; reset.hidden = true; sync();
+    });
+    sync();
+  });
+
+  /* ---------- Route map: an animated route through my career (about) ---------- */
+  $all('[data-route]').forEach(function (root) {
+    var NS = 'http://www.w3.org/2000/svg';
+    var svg = root.querySelector('svg'), path = root.querySelector('.route-line'), items = $all('.route-list li', root);
+    var play = root.querySelector('[data-route-play]'), len = path.getTotalLength(), stops = [], dot, busy = false;
+    var trail = root.querySelector('.route-trail');
+    trail.setAttribute('d', path.getAttribute('d'));
+    trail.style.strokeDasharray = len; trail.style.strokeDashoffset = len;
+    items.forEach(function (li, i) {
+      var f = items.length === 1 ? 0 : i / (items.length - 1), p = path.getPointAtLength(f * len);
+      var g = document.createElementNS(NS, 'g'); g.setAttribute('class', 'stop'); g.setAttribute('transform', 'translate(' + p.x + ' ' + p.y + ')');
+      g.innerHTML = '<circle r="15"/><text y="5" text-anchor="middle">' + (i + 1) + '</text>';
+      svg.appendChild(g); stops.push({ f: f, g: g, li: li });
+    });
+    dot = document.createElementNS(NS, 'circle'); dot.setAttribute('r', 8); dot.setAttribute('class', 'route-dot');
+    var p0 = path.getPointAtLength(0); dot.setAttribute('cx', p0.x); dot.setAttribute('cy', p0.y); svg.appendChild(dot);
+    function reach(i) { stops.forEach(function (s, k) { s.g.classList.toggle('reached', k <= i); s.li.classList.toggle('here', k === i); s.li.classList.toggle('past', k < i); }); }
+    function show(f) {
+      var p = path.getPointAtLength(f * len); dot.setAttribute('cx', p.x); dot.setAttribute('cy', p.y);
+      trail.style.strokeDashoffset = len * (1 - f);
+      var idx = -1; stops.forEach(function (s, k) { if (f >= s.f - .001) { idx = k; } }); reach(idx);
+    }
+    function run() {
+      if (busy) { return; }
+      if (calmToys) { show(1); return; }
+      busy = true; play.disabled = true; var t0 = null, dur = 7000;
+      show(0);
+      (function tick(t) {
+        if (t0 === null) { t0 = t; }
+        var k = Math.min(1, (t - t0) / dur), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        show(e);
+        if (k < 1) { requestAnimationFrame(tick); } else { busy = false; play.disabled = false; play.textContent = 'Replay the route'; }
+      })(performance.now());
+    }
+    play.addEventListener('click', run);
+    stops.forEach(function (s) { s.li.addEventListener('click', function () { if (!busy) { show(s.f); } }); });
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { io.disconnect(); run(); } }, { threshold: .5 });
+      io.observe(svg);
+    }
+  });
+
+  /* ---------- Fur: a patch you can stroke (about) ---------- */
+  $all('[data-fur]').forEach(function (cv) {
+    var ctx = cv.getContext('2d'), W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1), strands = [], mx = -999, my = -999, raf = 0;
+    var cols = ['#1E3A34', '#2f5a4f', '#3f7466', '#F0B90B', '#7fa89b'];
+    function size() {
+      W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      strands = []; var n = Math.round(W * H / 38);
+      for (var i = 0; i < n; i++) { strands.push({ x: Math.random() * W, y: Math.random() * H, l: 12 + Math.random() * 12, a: 0, v: 0, r: (Math.random() - .5) * .5, c: cols[Math.floor(Math.random() * cols.length)] }); }
+      strands.sort(function (a, b) { return a.y - b.y; });
+      draw();
+    }
+    function draw() {
+      ctx.clearRect(0, 0, W, H); ctx.lineWidth = 1.6; ctx.lineCap = 'round'; var moving = false;
+      strands.forEach(function (s) {
+        var dx = s.x - mx, dy = (s.y - 6) - my, d = Math.sqrt(dx * dx + dy * dy);
+        if (d < 46) { s.v += (dx / (d + 8)) * .09; }
+        s.v += (-s.a * .08) - s.v * .12; s.a += s.v;
+        if (Math.abs(s.a) > .002 || Math.abs(s.v) > .002) { moving = true; }
+        var ang = -Math.PI / 2 + s.r + s.a;
+        ctx.strokeStyle = s.c; ctx.beginPath(); ctx.moveTo(s.x, s.y);
+        ctx.quadraticCurveTo(s.x + Math.cos(ang + s.a * .5) * s.l * .5, s.y + Math.sin(ang) * s.l * .5, s.x + Math.cos(ang) * s.l, s.y + Math.sin(ang) * s.l); ctx.stroke();
+      });
+      raf = (moving || mx > -900) ? requestAnimationFrame(draw) : 0;
+    }
+    cv.addEventListener('pointermove', function (e) { var r = cv.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; if (!raf && !calmToys) { raf = requestAnimationFrame(draw); } });
+    cv.addEventListener('pointerleave', function () { mx = my = -999; });
+    window.addEventListener('resize', size);
+    size();
+  });
+
   /* ---------- "Surprise me" (journal) ---------- */
   $all('[data-random]').forEach(function (b) {
     b.addEventListener('click', function () {
