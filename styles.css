@@ -540,3 +540,6 @@ html[data-mood="kurenai"] { --tape: #EE7A7A; --tape2: #F5B3A2; }
   .vtile, .mood-sw, .role-badge, .run-bar i, .run-list input { transition: none; }
   .vac-can.on { animation: none; }
 }
+
+.entries .soon,.resources .soon{font-family:var(--display);font-weight:600;font-size:1.2rem;line-height:1.25;display:block;margin-bottom:.3rem;opacity:.75}
+.entries .soon::after{content:"File coming soon";font-family:var(--body,inherit);font-size:.7rem;font-weight:500;margin-left:.6rem;padding:.1rem .5rem;border:1px dashed currentColor;border-radius:99px;vertical-align:middle}
