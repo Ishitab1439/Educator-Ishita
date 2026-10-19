@@ -545,3 +545,13 @@ html[data-mood="kurenai"] { --tape: #EE7A7A; --tape2: #F5B3A2; }
 .entries .soon::after{content:"File coming soon";font-family:var(--body,inherit);font-size:.7rem;font-weight:500;margin-left:.6rem;padding:.1rem .5rem;border:1px dashed currentColor;border-radius:99px;vertical-align:middle}
 
 @media (max-width:480px){.brand{font-size:1rem;white-space:normal;line-height:1.1;max-width:9.5rem}}
+
+@media (min-width: 821px) and (max-width: 1180px) {
+  .menu-btn { display: inline-block; }
+  .nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: var(--bg); border-bottom: 1px solid var(--line); padding: .5rem 1.25rem 1rem; margin: 0; }
+  .nav.open { display: flex; }
+  .nav a { padding: .8rem 0; border-bottom: 1px solid var(--line); }
+}
+@media (min-width: 1181px) and (max-width: 1340px) {
+  .nav a { padding: .45rem .55rem; font-size: .93rem; }
+}

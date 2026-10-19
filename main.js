@@ -14,6 +14,8 @@
   var FOOTER_NOTE = 'Student work is shown with consent. IB, MYP and ManageBac are trademarks of their respective owners and are used here only to describe my work.';
   var NAV = [                                      // EDIT: [page id, label, file]
     ['about', 'About', 'about.html'],
+    ['myp', 'MYP Design', 'myp.html'],
+    ['dp', 'DP Design Tech', 'dp.html'],
     ['teaching', 'Teaching', 'teaching.html'],
     ['student-work', 'Student work', 'student-work.html'],
     ['design-skills', 'Design skills', 'design-skills.html'],
