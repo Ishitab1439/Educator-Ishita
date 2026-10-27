@@ -342,6 +342,34 @@
   });
 
   /* ---------- Lightbox (student work) ---------- */
+  /* Show each piece's main inquiry question on the card itself */
+  $all('.work').forEach(function (w) {
+    var more = w.querySelector('.work-more');
+    var meta = w.querySelector('.meta');
+    if (!more || !meta) { return; }
+    var dts = $all('dt', more);
+    for (var i = 0; i < dts.length; i++) {
+      if (dts[i].textContent.trim() === 'Inquiry questions') {
+        var txt = dts[i].nextElementSibling.textContent;
+        var at = txt.indexOf('Conceptual:');
+        if (at < 0) { return; }
+        var rest = txt.slice(at + 11).trim();
+        var q = rest.slice(0, rest.indexOf('?') + 1);
+        if (!q) { return; }
+        var p = document.createElement('p');
+        p.className = 'work-q';
+        p.innerHTML = '<b>Guiding question</b> ';
+        p.appendChild(document.createTextNode(q));
+        meta.parentNode.insertBefore(p, meta);
+        var hint = document.createElement('span');
+        hint.className = 'work-hint';
+        hint.textContent = 'Open for the full inquiry, process and learning';
+        meta.parentNode.insertBefore(hint, meta.nextSibling);
+        return;
+      }
+    }
+  });
+
   var dlg = document.getElementById('lightbox');
   if (dlg && typeof dlg.showModal === 'function') {
     var idx = 0;

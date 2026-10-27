@@ -227,6 +227,9 @@ img.fill { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
 .work-open:hover::after, .work-open:focus-visible::after { opacity: 1; transform: none; }
 .work h3 { font-size: 1.15rem; margin: .9rem 0 .25rem; }
 .work p { font-size: 1rem; line-height: 1.5; margin: 0 0 .5rem; color: var(--text); }
+.work .work-q { font-size: .95rem; color: var(--text); border-left: 3px solid var(--accent, currentColor); padding-left: .6rem; margin: .3rem 0 .6rem; }
+.work .work-q b { font-family: var(--display); font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); display: block; }
+.work .work-hint { display: block; font-family: var(--display); font-size: .82rem; color: var(--muted); margin-top: .2rem; }
 .work .meta { font-family: var(--display); font-size: .88rem; color: var(--muted); }
 .work-more { display: none; }
 .note { margin-top: 2.5rem; padding-top: 1.2rem; border-top: 1px solid var(--line); font-size: 1rem; color: var(--muted); max-width: 70ch; }
