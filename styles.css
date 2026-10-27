@@ -559,3 +559,17 @@ html[data-mood="kurenai"] { --tape: #EE7A7A; --tape2: #F5B3A2; }
 @media (min-width: 1181px) and (max-width: 1340px) {
   .nav a { padding: .45rem .55rem; font-size: .93rem; }
 }
+
+/* Student videos */
+.vwork-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 2.4rem 1.8rem; margin-top: 1.4rem; }
+.vwork video { width: 100%; display: block; background: #0b1412; border: 1px solid var(--line); border-radius: 4px; aspect-ratio: 16 / 9; object-fit: contain; }
+.vwork.portrait video { aspect-ratio: auto; max-height: 520px; }
+.vwork h3 { font-size: 1.25rem; margin: .9rem 0 .25rem; }
+.vwork p { margin: 0 0 .5rem; line-height: 1.5; }
+.vwork .meta { font-family: var(--display); font-size: .88rem; color: var(--muted); display: block; margin-bottom: .6rem; }
+.vwork details { border-top: 1px solid var(--line); padding-top: .6rem; }
+.vwork summary { font-family: var(--display); font-weight: 600; cursor: pointer; color: var(--ink); }
+.vwork dl { display: grid; grid-template-columns: max-content 1fr; gap: .45rem 1rem; margin: .8rem 0 0; font-size: .98rem; }
+.vwork dt { font-family: var(--display); font-weight: 600; color: var(--ink); }
+.vwork dd { margin: 0; line-height: 1.5; }
+@media (max-width: 560px) { .vwork dl { grid-template-columns: 1fr; gap: .15rem; } .vwork dd { margin-bottom: .5rem; } }
