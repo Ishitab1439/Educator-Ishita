@@ -471,19 +471,19 @@
   /* ---------- Sawdust, the squishy workshop buddy (home) ---------- */
   $all('[data-blob]').forEach(function (host) {
     var quips = [
-      ['Measure twice, cut once.'],
-      ['I am 100% recycled sawdust.'],
-      ['Ouch! Okay, that one was fair.'],
-      ['Every prototype is a good question.'],
-      ['Ishita teaches MYP Design. Ask her about the design cycle.', 'myp.html', 'See MYP Design'],
-      ['She is the MYP 3 Grade Lead, so she thinks about wellbeing as much as workshops.', 'leadership.html', 'See leadership'],
-      ['She helps her school run ManageBac. Even timetables are a design problem.', 'leadership.html', 'See ManageBac work'],
-      ['She mentors young innovators at ACIC CBIT and for Atal Innovation Mission.', 'leadership.html', 'See mentoring'],
-      ['IGNITE is her stage for student ideas. I am hoping to be a prop.', 'ignite.html', 'See IGNITE'],
-      ['She is learning Fusion 360 so students can model before they make.', 'design-skills.html', 'See design skills'],
-      ['Next stop: teaching DP Design Technology. I will be the mascot.', 'dp.html', 'See DP Design Tech'],
-      ['A good run-sheet is a love letter to the team.'],
-      ['My favourite tool is the next iteration.']
+      ['Hi! I am Sawdust. Let me tell you about Ishita Bhattacharjee.', 'about.html', 'Read her story'],
+      ['She is a Design teacher at Sreenidhi International School, teaching the Middle Years Programme (MYP).', 'myp.html', 'See MYP Design'],
+      ['She is a Presidential Gold Medalist, with a BSc in Mathematics and an M.Ed.', 'about.html', 'See her journey'],
+      ['She is the MYP 3 Grade Lead, so she thinks about student wellbeing as much as workshops.', 'leadership.html', 'See leadership'],
+      ['She leads ManageBac implementation and support at her school, and is a Faria Education Group Community Ambassador.', 'leadership.html', 'See ManageBac work'],
+      ['She mentors Personal Project students, and she is a Mentor of Change for the Atal Innovation Mission.', 'leadership.html', 'See mentoring'],
+      ['She is also an Innovation and Design Mentor at ACIC CBIT.', 'leadership.html', 'See mentoring'],
+      ['She helps lead the operations for IGNITE, her school\u2019s showcase of student ideas.', 'ignite.html', 'See IGNITE'],
+      ['She designs and builds too: 3D printing, laser cutting, wood, electronics and Fusion 360.', 'design-skills.html', 'See what she makes'],
+      ['She is a Global Schools Advocate for the United Nations Sustainable Development Solutions Network.', 'leadership.html', 'See the programme'],
+      ['She is building towards teaching DP Design Technology.', 'dp.html', 'See DP Design Tech'],
+      ['Her classroom runs on inquiry, and students write about what they learn in her journal.', 'journal.html', 'Read the journal'],
+      ['Want to talk to her? She would love to hear from you.', 'contact.html', 'Get in touch']
     ];
     host.innerHTML =
       '<button type="button" class="blob-btn" aria-label="Poke Sawdust, the workshop buddy">' +
@@ -513,7 +513,7 @@
     function squish() {
       x = calmToys ? 0 : .9; v = 0;
       if (!calmToys && !raf) { last = performance.now(); raf = requestAnimationFrame(frame); }
-      var n; do { n = Math.floor(Math.random() * quips.length); } while (n === qi);
+      var n = (qi + 1) % quips.length;
       qi = n; bubble.textContent = quips[n][0];
       if (quips[n][1]) {
         var link = document.createElement('a');
