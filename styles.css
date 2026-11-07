@@ -576,3 +576,7 @@ html[data-mood="kurenai"] { --tape: #EE7A7A; --tape2: #F5B3A2; }
 @media (max-width: 560px) { .vwork dl { grid-template-columns: 1fr; gap: .15rem; } .vwork dd { margin-bottom: .5rem; } }
 
 .blob-bubble .blob-link { font-weight: 600; white-space: nowrap; }
+
+.voices.facts blockquote h3 { color: #EEF1EF; font-size: 1.2rem; margin: 0 0 .6rem; }
+.voices.facts blockquote p { font-style: normal; font-size: 1.02rem; line-height: 1.6; }
+.voices.facts footer a { color: var(--tape); }
