@@ -580,3 +580,13 @@ html[data-mood="kurenai"] { --tape: #EE7A7A; --tape2: #F5B3A2; }
 .voices.facts blockquote h3 { color: #EEF1EF; font-size: 1.2rem; margin: 0 0 .6rem; }
 .voices.facts blockquote p { font-style: normal; font-size: 1.02rem; line-height: 1.6; }
 .voices.facts footer a { color: var(--tape); }
+
+.recs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; margin-top: 1.6rem; }
+.rec { margin: 0; padding: 1.3rem 1.3rem 1.1rem; border: 1px solid var(--line); border-top: 3px solid var(--tape); border-radius: 4px; background: var(--card, transparent); display: flex; flex-direction: column; justify-content: space-between; gap: 1rem; }
+.rec blockquote { margin: 0; }
+.rec blockquote p { margin: 0; font-size: 1.02rem; line-height: 1.6; font-style: italic; }
+.rec figcaption { font-family: var(--display); font-size: .9rem; color: var(--muted); display: flex; flex-direction: column; gap: .15rem; }
+.rec figcaption strong { color: var(--ink); font-size: 1rem; font-weight: 600; }
+.rec .rel { font-size: .82rem; opacity: .85; }
+@media (max-width: 980px) { .recs { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .recs { grid-template-columns: 1fr; } }
