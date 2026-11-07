@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="'Segoe Print','Bradley Hand','Comic Sans MS',cursive">
+<defs><filter id="r"><feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="5"/></filter>
+<pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#c9d8d2" stroke-width="1"/></pattern></defs>
+<rect width="1280" height="720" fill="#f7f4ea"/><rect width="1280" height="720" fill="url(#g)"/>
+<g filter="url(#r)" fill="none" stroke="#2b2b2b" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+<rect x="190" y="130" width="900" height="470" rx="70"/>
+<circle cx="1020" cy="200" r="22"/>
+<rect x="240" y="200" width="150" height="300" rx="30" stroke-dasharray="14 10"/><path d="M270 260 l30 -40 l25 30 l25 -30 l30 40"/><circle cx="315" cy="300" r="40"/><path d="M285 345 l-25 110 M345 345 l25 110"/>
+<path d="M420 190 h380 M420 250 h380" stroke-dasharray="2 12"/>
+<path d="M430 180 v-0 M430 190 h40 M500 190 h40 M570 190 h40 M640 190 h40 M710 190 h40"/>
+<path d="M470 300 h330 M470 370 h330" stroke-dasharray="14 10"/>
+<path d="M250 535 h760" stroke-dasharray="6 10"/>
+</g>
+<g fill="#2b2b2b" font-size="26">
+<text x="420" y="172" font-size="34" font-weight="700">IGNITE</text>
+<text x="420" y="242" font-size="24">2026-27</text>
+<text x="470" y="345">student name</text>
+<text x="470" y="412" font-size="22">tagline</text>
+<text x="420" y="565" font-size="28">Hackathon &amp; Makeathon</text>
+<text x="262" y="535" font-size="20" fill="#b3472d" opacity="0">.</text><text x="248" y="190" font-size="22" fill="#b3472d">fox mascot</text>
+<text x="905" y="175" font-size="20" fill="#b3472d">lanyard hole</text>
+<text x="190" y="105" font-size="22" fill="#b3472d">acrylic, rounded corners</text>
+<text x="190" y="660" font-size="24" fill="#2e6b5b">engrave = fox + text      cut = outline + hole</text>
+</g>
+</svg>
