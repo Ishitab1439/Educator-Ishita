@@ -332,6 +332,7 @@ details.principle p { font-size: 1rem; line-height: 1.5; color: var(--muted); ma
 /* ---------- Maker strip (home) ---------- */
 .maker-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
 .maker-grid .ph { aspect-ratio: 1; }
+.maker-grid > li > img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 1px solid var(--line); border-radius: 4px; display: block; }
 .maker-grid h3 { font-size: 1.15rem; margin: .9rem 0 .25rem; }
 .maker-grid p { font-size: 1rem; line-height: 1.5; margin: 0; color: var(--muted); }
 
