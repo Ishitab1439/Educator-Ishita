@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Illustration of a laser beam cutting a pattern of shapes from a flat sheet">
+<rect width="400" height="400" fill="#EFF1EF"/>
+<rect x="60" y="150" width="280" height="200" rx="6" fill="#F0B90B" stroke="#1E3A34" stroke-width="3"/>
+<g fill="#EFF1EF" stroke="#1E3A34" stroke-width="3">
+<circle cx="130" cy="220" r="30"/>
+<rect x="180" y="190" width="60" height="60" rx="4"/>
+<path d="M290 190l32 56h-64z"/>
+<circle cx="130" cy="310" r="14"/><circle cx="210" cy="310" r="14"/><circle cx="290" cy="310" r="14"/>
+</g>
+<g stroke="#1E3A34" stroke-width="3" fill="none" stroke-linecap="round">
+<rect x="176" y="34" width="48" height="40" rx="6" fill="#1E3A34"/>
+<path d="M200 74v52" stroke="#d33" stroke-width="5"/>
+</g>
+<circle cx="200" cy="130" r="7" fill="#d33"/>
+<g font-family="Georgia,serif" font-size="24" fill="#1E3A34"><text x="236" y="62">laser</text><text x="60" y="385">flat sheet, 2D shapes</text></g>
+</svg>
