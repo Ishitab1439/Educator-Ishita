@@ -471,14 +471,19 @@
   /* ---------- Sawdust, the squishy workshop buddy (home) ---------- */
   $all('[data-blob]').forEach(function (host) {
     var quips = [
-      'Measure twice, cut once.',
-      'I am 100% recycled sawdust.',
-      'Sand it. Then sand it again.',
-      'Ask me about the design cycle.',
-      'Ouch! Okay, that one was fair.',
-      'Every prototype is a good question.',
-      'A good run-sheet is a love letter to the team.',
-      'My favourite tool is the next iteration.'
+      ['Measure twice, cut once.'],
+      ['I am 100% recycled sawdust.'],
+      ['Ouch! Okay, that one was fair.'],
+      ['Every prototype is a good question.'],
+      ['Ishita teaches MYP Design. Ask her about the design cycle.', 'myp.html', 'See MYP Design'],
+      ['She is the MYP 3 Grade Lead, so she thinks about wellbeing as much as workshops.', 'leadership.html', 'See leadership'],
+      ['She helps her school run ManageBac. Even timetables are a design problem.', 'leadership.html', 'See ManageBac work'],
+      ['She mentors young innovators at ACIC CBIT and for Atal Innovation Mission.', 'leadership.html', 'See mentoring'],
+      ['IGNITE is her stage for student ideas. I am hoping to be a prop.', 'ignite.html', 'See IGNITE'],
+      ['She is learning Fusion 360 so students can model before they make.', 'design-skills.html', 'See design skills'],
+      ['Next stop: teaching DP Design Technology. I will be the mascot.', 'dp.html', 'See DP Design Tech'],
+      ['A good run-sheet is a love letter to the team.'],
+      ['My favourite tool is the next iteration.']
     ];
     host.innerHTML =
       '<button type="button" class="blob-btn" aria-label="Poke Sawdust, the workshop buddy">' +
@@ -509,7 +514,13 @@
       x = calmToys ? 0 : .9; v = 0;
       if (!calmToys && !raf) { last = performance.now(); raf = requestAnimationFrame(frame); }
       var n; do { n = Math.floor(Math.random() * quips.length); } while (n === qi);
-      qi = n; bubble.textContent = quips[n];
+      qi = n; bubble.textContent = quips[n][0];
+      if (quips[n][1]) {
+        var link = document.createElement('a');
+        link.href = quips[n][1]; link.textContent = quips[n][2] + ' \u2192';
+        link.className = 'blob-link';
+        bubble.appendChild(document.createTextNode(' ')); bubble.appendChild(link);
+      }
       mouth.setAttribute('d', 'M46 76q14 20 28 0');
       setTimeout(function () { mouth.setAttribute('d', 'M48 78q12 9 24 0'); }, 450);
     }
