@@ -603,3 +603,7 @@ html[data-mood="kurenai"] { --tape: #EE7A7A; --tape2: #F5B3A2; }
 .crit-links span { font-size: .88rem; color: var(--muted); }
 .crit-back { margin: .8rem 0 0; font-size: .9rem; }
 @media (max-width: 760px) { .crit-grid { grid-template-columns: 1fr; } }
+
+.crit-label { margin: 1rem 0 .3rem; font-family: var(--display); font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.crit-strands { margin: 0 0 .4rem; padding-left: 1.2rem; }
+.crit-strands li { padding: .15rem 0; }
