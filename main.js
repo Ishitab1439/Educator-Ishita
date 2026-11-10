@@ -261,6 +261,11 @@
       a.textContent = it.linkText;
     }
 
+    function go(i) {
+      var h = items[i].href;
+      if (h && h.charAt(0) === '#') { var t = document.querySelector(h); if (t) { t.scrollIntoView({ behavior: 'smooth', block: 'start' }); history.replaceState(null, '', h); } }
+    }
+
     items.forEach(function (it, i) {
       var a0 = -Math.PI / 2 + i * 2 * Math.PI / n + gap;
       var a1 = -Math.PI / 2 + (i + 1) * 2 * Math.PI / n - gap;
@@ -279,11 +284,11 @@
       label.setAttribute('text-anchor', 'middle');
       label.textContent = it.letter;
       g.appendChild(path); g.appendChild(label);
-      g.addEventListener('click', function () { activate(i); });
+      g.addEventListener('click', function () { activate(i); go(i); });
       g.addEventListener('mouseenter', function () { activate(i); });
       g.addEventListener('focus', function () { activate(i); });
       g.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(i); }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(i); go(i); }
         if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); segs[(i + 1) % n].focus(); }
         if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); segs[(i - 1 + n) % n].focus(); }
       });
