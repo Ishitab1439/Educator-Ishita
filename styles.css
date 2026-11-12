@@ -607,3 +607,16 @@ html[data-mood="kurenai"] { --tape: #EE7A7A; --tape2: #F5B3A2; }
 .crit-label { margin: 1rem 0 .3rem; font-family: var(--display); font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
 .crit-strands { margin: 0 0 .4rem; padding-left: 1.2rem; }
 .crit-strands li { padding: .15rem 0; }
+
+.ops-stat { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem 1.2rem; margin: 0 0 1.8rem; padding: 1.2rem 1.4rem; background: var(--ink, #1f3a35); color: #fff; border-radius: 6px; }
+.ops-stat strong { font-family: var(--display); font-size: clamp(2rem, 6vw, 3rem); line-height: 1; color: var(--tape, #f5b800); }
+.ops-stat span { max-width: 34rem; }
+.ops-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.ops-card { position: relative; padding: 1.2rem 1.2rem 1.3rem; border: 1px solid var(--line); border-top: 3px solid var(--tape, #f5b800); border-radius: 4px; background: rgba(255,255,255,.35); transition: transform .2s, box-shadow .2s; }
+.ops-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.08); }
+.ops-n { display: block; font-family: var(--display); font-size: .85rem; letter-spacing: .08em; color: var(--muted); margin-bottom: .4rem; }
+.ops-card h3 { margin: 0 0 .4rem; }
+.ops-card p { margin: 0; color: var(--muted); }
+@media (max-width: 900px) { .ops-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .ops-grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .ops-card { transition: none; } .ops-card:hover { transform: none; } }
