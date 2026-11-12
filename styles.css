@@ -620,3 +620,6 @@ html[data-mood="kurenai"] { --tape: #EE7A7A; --tape2: #F5B3A2; }
 @media (max-width: 900px) { .ops-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .ops-grid { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .ops-card { transition: none; } .ops-card:hover { transform: none; } }
+
+a.role-link { display: block; text-decoration: none; color: inherit; }
+a.role-link h3 { text-decoration: underline; text-decoration-color: var(--tape); text-underline-offset: 3px; }
