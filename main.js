@@ -214,7 +214,8 @@
   if (footer) {
     footer.className = 'site-footer';
     var flinks = NAV.map(function (n) { return '<a href="' + root + n[2] + '">' + n[1] + '</a>'; }).join('') +
-      '<a href="' + root + 'ignite.html">IGNITE</a>';
+      '<a href="' + root + 'ignite.html">IGNITE</a>' +
+      '<a href="https://www.linkedin.com/in/ishita-bhattacharjee-3a3984193" target="_blank" rel="noopener">LinkedIn</a>';
     footer.innerHTML =
       '<div class="wrap">' +
         '<div><p>' + FOOTER_NOTE + '</p><p>&copy; ' + NAME + '</p></div>' +
@@ -627,7 +628,7 @@
     var win = root.querySelector('.claw-win');
     var nudge = root.querySelector('.claw-nudge');
     var src = document.querySelector('[data-copy]');
-    var email = src ? src.getAttribute('data-copy') : 'you@example.com';
+    var email = src ? src.getAttribute('data-copy') : 'ishitabhattacharjee48@gmail.com';
     var colours = ['#E4DCC8', '#9FC7BB', '#F2A58E', '#B9B2E0', '#D7E9E2'];
     var W = 0, H = 0, CAP = 38;
     var claw = document.createElement('div'); claw.className = 'claw-arm';
