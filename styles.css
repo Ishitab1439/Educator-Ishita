@@ -623,3 +623,5 @@ html[data-mood="kurenai"] { --tape: #EE7A7A; --tape2: #F5B3A2; }
 
 a.role-link { display: block; text-decoration: none; color: inherit; }
 a.role-link h3 { text-decoration: underline; text-decoration-color: var(--tape); text-underline-offset: 3px; }
+.ops-card { scroll-margin-top: 90px; }
+section[id^="role-"] { scroll-margin-top: 80px; }
